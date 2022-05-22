@@ -1,0 +1,28 @@
+.inputs{
+    border: none;
+    outline: none;
+    margin-right: 1rem;
+    padding: 1rem;
+}
+.inputs-container{
+    border: 2px solid var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.pinned-icon{
+    position: absolute;
+    right: .5rem;
+    top: .5rem;
+    font-size: large;
+    cursor: pointer;
+}
+.note-maker-btn{
+    border: none;
+    position: absolute;
+    cursor: pointer;
+    width: 3rem;
+    right: 0rem;
+    bottom: 0rem;
+    background-color: var(--secondary-color);
+}

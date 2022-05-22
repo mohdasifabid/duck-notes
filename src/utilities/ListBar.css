@@ -1,0 +1,42 @@
+.icons-container{
+    position: relative;
+    display: inline-block;
+    
+}
+.list-bar-list-icon{
+    padding: 1rem;
+    font-size: x-large;
+}
+.appear-on-hover{
+   display: none;
+   position: absolute;
+   min-width: 160px;
+   z-index: 1;
+}
+.appear-on-hover-content{
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 1rem 0;
+    display: block;
+    
+}
+.appear-on-hover-content:hover{
+    background-color: black;
+}
+
+.icons-container:hover .appear-on-hover{
+    display: block;
+    
+}
+/* .icons-container:hover .list-bar-list-icon{
+    font-size: xx-large;
+}  */
+.list-bar-icons{
+    color: var(--secondary-color);
+    cursor: pointer;
+    margin-left: 1rem;
+    margin-right: .5rem;
+}
+.listbar-links{
+    text-decoration: none;
+}

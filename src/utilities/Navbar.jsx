@@ -9,29 +9,13 @@ export const Navbar = () => {
 
   return (
     <div class="duck-navbar-container">
-      <ListBar />
-
-      <Link to="/" class="duck-navbar-brand duck-navbar-item">
-        <a href="">Make-Notes</a>
-      </Link>
-      {authState.isLogin === true || authState.isSignedUp === true ? (
-        <Link to="/login">
-          <a
-            onClick={() => {
-              authDispatch({ type: "LOGIN_STATUS", payload: false });
-              authDispatch({ type: "SIGNUP_STATUS", payload: false });
-              localStorage.removeItem("encodedToken");
-            }}
-          >
-            Logout
-          </a>
+      <div className="navbar-listbar-brand">
+        <ListBar />
+        <Link to="/" class="duck-navbar-brand duck-navbar-item">
+          duckNotes
         </Link>
-      ) : (
-        <Link to="/login">
-          <a>Login</a>
-        </Link>
-      )}
-      <div class="duck-navbar-right-items">
+      </div>
+      <div>
         <input
           id="navbarSearchInput"
           className="navbar-search-input"
@@ -41,6 +25,23 @@ export const Navbar = () => {
           }
         />
       </div>
+      {authState.isLogin === true || authState.isSignedUp === true ? (
+        <Link
+          className="navbar-login"
+          to="/login"
+          onClick={() => {
+            authDispatch({ type: "LOGIN_STATUS", payload: false });
+            authDispatch({ type: "SIGNUP_STATUS", payload: false });
+            localStorage.removeItem("encodedToken");
+          }}
+        >
+          Logout
+        </Link>
+      ) : (
+        <Link to="/login" className="navbar-login">
+          Login
+        </Link>
+      )}
     </div>
   );
 };

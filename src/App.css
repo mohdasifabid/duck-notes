@@ -60,6 +60,7 @@ align-items: center;
   align-items: center;
   border-radius: .25rem;
   border: 2px solid var(--secondary-color);
+  font-size: small;
 }
 
  .login-page-inputs-btn-container input{
@@ -67,7 +68,6 @@ align-items: center;
   margin: .5rem 0;
   padding: .4rem 0 .4rem 0;
   outline: none;
-
 }
 
 .login-page-inputs-btn-container button{
@@ -76,3 +76,14 @@ align-items: center;
   margin-top: 1rem;
   cursor: pointer;
 } 
+
+.singup-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.singup-page .login-page-inputs-btn-container {
+  padding: .75rem 3.5rem 0rem 3.5rem
+}

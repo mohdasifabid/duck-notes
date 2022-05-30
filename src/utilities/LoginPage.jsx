@@ -27,21 +27,15 @@ export const LoginPage = () => {
   return (
     <div className="login-page-body">
       <div className="login-page-inputs-btn-container">
-        <label htmlFor="">
-          <strong>Email</strong>
-        </label>
+        <label htmlFor="">Email</label>
         <input type="email" onChange={(e) => setEmail(e.target.value)} />
-        <label htmlFor="">
-          <strong>Password</strong>
-        </label>
+        <label htmlFor="">Password</label>
 
         <input type="password" onChange={(e) => setPassword(e.target.value)} />
         <button onClick={saveEmailPassword}>Login</button>
         <p>
           Not a user?
-          <Link to="/signup">
-            <a href="">Create account</a>
-          </Link>
+          <Link to="/signup">Create account</Link>
         </p>
       </div>
     </div>

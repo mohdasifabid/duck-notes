@@ -49,33 +49,30 @@ align-items: center;
 .login-page-body{
   display: flex;
   justify-content: center;
-  overflow: hidden;
+  align-items: center;
+  height: 100vh;
 }
 .login-page-inputs-btn-container{
-  overflow: hidden;
-  padding: 1rem;
-  width: 25rem;
-  min-height: 24rem;
+  padding: 2rem;
   display:flex ;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 4rem 0;
-  border-radius: 1rem;
-  box-shadow: 4px 2px 9px 2px var(--primary-color);
+  border-radius: .25rem;
+  border: 2px solid var(--secondary-color);
 }
-.login-page-inputs-btn-container label{
-  text-align: center;
-}
-.login-page-inputs-btn-container input{
-  margin: .5rem 1rem;
-  width: 17rem;
-  height: 2rem;
-  padding: 0 1rem;
+
+ .login-page-inputs-btn-container input{
+   width: 100%;
+  margin: .5rem 0;
+  padding: .4rem 0 .4rem 0;
   outline: none;
+
 }
+
 .login-page-inputs-btn-container button{
-  width: 15rem;
-  height: 2rem;
-  margin-top: 1.5rem;
-}
+  width: 100%;
+  padding: .5rem 0;
+  margin-top: 1rem;
+  cursor: pointer;
+} 

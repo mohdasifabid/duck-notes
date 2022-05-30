@@ -87,3 +87,9 @@ align-items: center;
 .singup-page .login-page-inputs-btn-container {
   padding: .75rem 3.5rem 0rem 3.5rem
 }
+
+/* footer */
+.duck-footer-container{
+  border-left: none;
+  border-right: none;
+}

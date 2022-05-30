@@ -8,10 +8,10 @@ export const Navbar = () => {
   const { state: authState, dispatch: authDispatch } = useAuthProvider();
 
   return (
-    <div class="duck-navbar-container">
+    <div className="duck-navbar-container">
       <div className="navbar-listbar-brand">
         <ListBar />
-        <Link to="/" class="duck-navbar-brand duck-navbar-item">
+        <Link to="/" className="duck-navbar-brand duck-navbar-item">
           duckNotes
         </Link>
       </div>

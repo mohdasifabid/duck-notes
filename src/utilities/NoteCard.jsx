@@ -144,17 +144,17 @@ export const NoteCard = ({ item, type }) => {
             }}
           />
 
-          <i class="fa-solid fa-tag"></i>
+          <i className="fa-solid fa-tag"></i>
 
           <i
-            class="note-card-icons fa-solid fa-box-archive"
+            className="note-card-icons fa-solid fa-box-archive"
             onClick={() => {
               archiveNote(item);
             }}
           ></i>
 
           <i
-            class="note-card-icons fa-solid fa-trash-can"
+            className="note-card-icons fa-solid fa-trash-can"
             onClick={() => {
               deleteNote(item);
               deleteFromArchive(item);

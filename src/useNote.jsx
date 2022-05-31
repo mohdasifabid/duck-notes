@@ -15,18 +15,6 @@ const noteReducer = (state, action) => {
         ...state,
         archive: action.payload,
       };
-
-    case "UPDATE_NOTE":
-      const copyForUpdate = [...state.notes];
-      const indexOfUpdateNote = copyForUpdate.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      copyForUpdate[indexOfUpdateNote] = action.payload;
-      return {
-        ...state,
-        notes: copyForUpdate,
-      };
-
     case "SEARCH_NOTE":
       return {
         ...state,

@@ -4,10 +4,10 @@ import { useNote } from "../useNote";
 import "./NoteCard.css";
 export const NoteCard = ({ item, type }) => {
   const { state, dispatch } = useNote();
-  const [titleUpdate, setTitleUpdate] = useState(item.title);
-  const [noteUpdate, setNoteUpdate] = useState(item.note);
-  const [bgColor, setBgColor] = useState(item.bgColor);
-  const [labelUpdate, setLabelUpdate] = useState(item.tag);
+  const [updatedTitle, setUpdatedTitle] = useState(item.title);
+  const [updatedNote, setUpdatedNote] = useState(item.note);
+  const [updatedBgColor, setUpdatedBgColor] = useState(item.bgColor);
+  const [updatedLabel, setUpdatedLabel] = useState(item.tag);
 
   const deleteNote = async (item) => {
     const token = localStorage.getItem("encodedToken");
@@ -18,7 +18,6 @@ export const NoteCard = ({ item, type }) => {
     });
     if (response.status === 200) {
       const getNotes = async () => {
-        const token = localStorage.getItem("encodedToken");
         const response = await axios.get("/api/notes", {
           headers: {
             authorization: token,
@@ -47,7 +46,6 @@ export const NoteCard = ({ item, type }) => {
     if (response.status === 201) {
       dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
       const getNotes = async () => {
-        const token = localStorage.getItem("encodedToken");
         const response = await axios.get("/api/notes", {
           headers: {
             authorization: token,
@@ -69,7 +67,6 @@ export const NoteCard = ({ item, type }) => {
     });
     if (response.status === 200) {
       const getData = async () => {
-        const token = localStorage.getItem("encodedToken");
         const response = await axios.get("/api/archives", {
           headers: {
             authorization: token,
@@ -83,44 +80,60 @@ export const NoteCard = ({ item, type }) => {
     }
   };
 
+  const postUpdatedNote = async (notesId) => {
+    const token = localStorage.getItem("encodedToken");
+    const response = await axios.post(
+      `/api/notes/${notesId}`,
+      {
+        note: {
+          ...item,
+          title: updatedTitle,
+          note: updatedNote,
+          tag: updatedLabel,
+          bgColor: updatedBgColor,
+        },
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+    if (response.status === 201) {
+      dispatch({ type: "GET_NOTES", payload: response.data.notes });
+    }
+  };
+
   return (
-    <div className="note-card-container" style={{ backgroundColor: bgColor }}>
+    <div
+      className="note-card-container"
+      style={{ backgroundColor: updatedBgColor }}
+    >
       <div className="note-card-inputs-container">
         <input
-          style={{ backgroundColor: bgColor }}
+          style={{ backgroundColor: updatedBgColor }}
           className="note-card-items"
-          value={titleUpdate}
-          onChange={(e) => setTitleUpdate(e.target.value)}
+          value={updatedTitle}
+          onChange={(e) => setUpdatedTitle(e.target.value)}
           onBlur={() => {
-            // updateNote(item);
-            dispatch({
-              type: "UPDATE_NOTE",
-              payload: { ...item, title: titleUpdate, note: noteUpdate },
-            });
+            postUpdatedNote(item._id);
           }}
         />
         <input
-          style={{ backgroundColor: bgColor }}
+          style={{ backgroundColor: updatedBgColor }}
           className="note-card-items"
-          value={noteUpdate}
-          onChange={(e) => setNoteUpdate(e.target.value)}
-          onBlur={() =>
-            dispatch({
-              type: "UPDATE_NOTE",
-              payload: { ...item, title: titleUpdate, note: noteUpdate },
-            })
-          }
+          value={updatedNote}
+          onChange={(e) => setUpdatedNote(e.target.value)}
+          onBlur={() => postUpdatedNote(item._id)}
         />
         <input
-          style={{ backgroundColor: bgColor }}
+          style={{ backgroundColor: updatedBgColor }}
           className="note-card-items"
-          value={labelUpdate}
-          onChange={(e) => setLabelUpdate(e.target.value)}
-          onBlur={() =>
-            dispatch({
-              type: "UPDATE_NOTE",
-              payload: { ...item, label: labelUpdate },
-            })
+          value={updatedLabel}
+          onChange={(e) => setUpdatedLabel(e.target.value)}
+          onBlur={
+            () => postUpdatedNote(item._id)
+            // })
           }
         />
       </div>
@@ -133,14 +146,15 @@ export const NoteCard = ({ item, type }) => {
         <div className="bottom-right-side">
           <input
             className="bottom-right-side-color-input"
-            value={bgColor}
+            value={updatedBgColor}
             type="color"
-            onChange={(e) => setBgColor(e.target.value)}
+            onChange={(e) => setUpdatedBgColor(e.target.value)}
             onBlur={() => {
-              dispatch({
-                type: "UPDATE_NOTE",
-                payload: { ...item, bgColor },
-              });
+              postUpdatedNote(item._id);
+              // dispatch({
+              //   type: "UPDATE_NOTE",
+              //   payload: { ...item, updatedBgColor },
+              // });
             }}
           />
 

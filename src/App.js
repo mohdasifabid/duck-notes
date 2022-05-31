@@ -42,7 +42,7 @@ function App() {
       <Route path="/" element={<LandingPage/>}/>
       <Route path="/signup" element={<Signup/>}/>
       {
-       (authState.isLogin) ? <Route path="/" element={<LandingPage/>}/> :
+       (authState.isLogin) ? <Route path="/login" element={<LandingPage/>}/> :
       <Route path="/login" element={<LoginPage/>}/>
       }
       <Route path="/labels" element={<PrivateRoute/>}>

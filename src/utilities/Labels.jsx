@@ -4,8 +4,26 @@ import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { NoteCard } from "./NoteCard";
 
-export const LabelsPage = ({ item }) => {
+export const LabelsPage = () => {
   const { state } = useNote();
+  const [notesByLabels, setNotesByLabels] = useState([]);
+
+  // useEffect(() => {
+  //   const createNewNotesData = () => {
+  //     let newArr = [];
+  //     let newObj = {};
+  //     let data = state.notes;
+  //     let result = data.map((note) => {
+  //       if (newObj[note.tag] === undefined) {
+  //         return (newObj[note.tag] = note);
+  //       } else {
+  //         return (newObj[note.tag] = [...newObj[note.tag], note]);
+  //       }
+  //     });
+  //   };
+  //   createNewNotesData();
+  // }, []);
+
   return (
     <div>
       <Navbar />

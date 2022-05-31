@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useNote } from "../useNote";
 import { Footer } from "./Footer";
@@ -9,22 +8,6 @@ import { NoteMaker } from "./NoteMaker";
 
 export const LandingPage = () => {
   const { state, dispatch } = useNote();
-
-  useEffect(() => {
-    const getNotes = async () => {
-      const token = localStorage.getItem("encodedToken");
-      const response = await axios.get("/api/notes", {
-        headers: {
-          authorization: token,
-        },
-      });
-      if (response.status === 200) {
-        dispatch({ type: "GET_NOTES", payload: response.data.notes });
-      }
-    };
-    getNotes();
-  }, []);
-
   const searchNoteFunction = (data, meter) => {
     if (meter && meter.length > 0) {
       return data.filter((item) =>

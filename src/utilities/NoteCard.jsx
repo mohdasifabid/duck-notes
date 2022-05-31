@@ -92,7 +92,7 @@ export const NoteCard = ({ item, type }) => {
           value={titleUpdate}
           onChange={(e) => setTitleUpdate(e.target.value)}
           onBlur={() => {
-            updateNote(item);
+            // updateNote(item);
             dispatch({
               type: "UPDATE_NOTE",
               payload: { ...item, title: titleUpdate, note: noteUpdate },

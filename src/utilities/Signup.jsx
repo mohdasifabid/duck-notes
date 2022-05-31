@@ -23,7 +23,7 @@ export const Signup = () => {
     if (response.status === 201) {
       authDispatch({ type: "SIGNUP_STATUS", payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
-      navigate("/");
+      navigate("/login");
     }
   };
 

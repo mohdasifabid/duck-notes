@@ -1,4 +1,5 @@
 import "./App.css";
+import axios from "axios";
 import {Routes, Route} from "react-router-dom";
 import { LandingPage,  } from "./utilities/LandingPage";
 import { ArchivePage } from "./utilities/ArchivePage"
@@ -9,9 +10,12 @@ import { useAuthProvider } from "./authProvider";
 import { Signup } from "./utilities/Signup";
 import { PrivateRoute } from "./utilities/PrivateRoute";
 import { ProfilePage } from "./utilities/ProfilePage";
+import { useNote } from "./useNote";
 
 function App() {
   const {dispatch: authDispatch, state: authState} = useAuthProvider()
+  const { state, dispatch } = useNote();
+
   useEffect(()=>{
    const token = localStorage.getItem("encodedToken");
    if(token){
@@ -20,8 +24,17 @@ function App() {
     authDispatch({type: "LOGIN_STATUS", payload: false})
    }
 
-
-
+   const getNotes = async () => {
+    const response = await axios.get("/api/notes", {
+      headers: {
+        authorization: token,
+      },
+    });
+    if (response.status === 200) {
+      dispatch({ type: "GET_NOTES", payload: response.data.notes });
+    }
+  };
+  getNotes();
   },[])
   return (
   <div>
@@ -29,7 +42,7 @@ function App() {
       <Route path="/" element={<LandingPage/>}/>
       <Route path="/signup" element={<Signup/>}/>
       {
-       (authState.isLogin) ? <Route path="/login" element={<LandingPage/>}/> :
+       (authState.isLogin) ? <Route path="/" element={<LandingPage/>}/> :
       <Route path="/login" element={<LoginPage/>}/>
       }
       <Route path="/labels" element={<PrivateRoute/>}>

@@ -131,10 +131,7 @@ export const NoteCard = ({ item, type }) => {
           className="note-card-items"
           value={updatedLabel}
           onChange={(e) => setUpdatedLabel(e.target.value)}
-          onBlur={
-            () => postUpdatedNote(item._id)
-            // })
-          }
+          onBlur={() => postUpdatedNote(item._id)}
         />
       </div>
 
@@ -151,14 +148,8 @@ export const NoteCard = ({ item, type }) => {
             onChange={(e) => setUpdatedBgColor(e.target.value)}
             onBlur={() => {
               postUpdatedNote(item._id);
-              // dispatch({
-              //   type: "UPDATE_NOTE",
-              //   payload: { ...item, updatedBgColor },
-              // });
             }}
           />
-
-          <i className="fa-solid fa-tag"></i>
 
           <i
             className="note-card-icons fa-solid fa-box-archive"

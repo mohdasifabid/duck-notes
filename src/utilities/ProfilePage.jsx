@@ -14,7 +14,6 @@ export const ProfilePage = ({ item }) => {
           authorization: token,
         },
       });
-      console.log(response);
     };
     getUser();
   }, []);

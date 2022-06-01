@@ -20,18 +20,12 @@ const noteReducer = (state, action) => {
         ...state,
         searchQuery: action.payload,
       };
-    case "PIN_NOTE":
-      return {
-        ...state,
-        pinnedNotes: [...state.pinnedNotes, action.payload],
-      };
     default:
       return state;
   }
 };
 const initialState = {
   notes: [],
-  pinnedNotes: [],
   archive: [],
   searchQuery: "",
 };

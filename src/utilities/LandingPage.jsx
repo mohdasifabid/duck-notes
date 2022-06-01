@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useNote } from "../useNote";
 import { Footer } from "./Footer";
 import "./LandingPage.css";
@@ -25,12 +24,6 @@ export const LandingPage = () => {
       <div className="landing-page-body">
         <div className="landing-page-note-maker-container">
           <NoteMaker />
-        </div>
-        {state.pinnedNotes.length > 0 && <h2>Pinned Notes</h2>}
-        <div className="landing-page-pinned-notes-container">
-          {state.pinnedNotes.map((item) => {
-            return <NoteCard type="pin" key={item._id} item={item} />;
-          })}
         </div>
         <div className="landing-page-note-cards-container">
           {filteredNotes.map((item) => {

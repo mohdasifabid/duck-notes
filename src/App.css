@@ -28,6 +28,7 @@ align-items: center;
   top: 0;
   z-index: 1000;
   background-color: white;
+  flex-basis:32px;
 }
 .navbar-listbar-brand{
   display: flex;
@@ -92,4 +93,30 @@ align-items: center;
 .duck-footer-container{
   border-left: none;
   border-right: none;
+  flex-basis:60px;
+}
+.leftbar-container{
+  flex-basis: 200px;
+  min-height: 100%;
+  background-color: rgb(209,208,209);
+}
+.leftbar-icon-name{
+  color: var(--primary-color);
+  padding: 1rem 0 1rem 1rem;
+  display: block;
+  display: flex;
+}
+.leftbar-icon-name:hover i{
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.leftbar-icon-name:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+.leftbar-icon-name i{
+  color: var(--primary-color);
+  margin-right: 1rem;
+  font-size: x-large;
 }

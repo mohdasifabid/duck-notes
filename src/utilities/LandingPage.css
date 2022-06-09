@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     margin: 2rem 4rem;
-    min-height: 100vh;
+    flex-grow: 1;
 } 
 
  .landing-page-note-maker-container{
@@ -16,3 +16,14 @@
     gap: 1.5rem;
     margin: 2rem;
 } 
+
+.common-big-container{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.main-body{
+display: flex;
+flex-grow: 1;
+}

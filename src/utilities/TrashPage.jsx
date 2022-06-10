@@ -7,7 +7,6 @@ import { getCall } from "./resuableFunctions";
 
 export const TrashPage = ({ item }) => {
   const { state, dispatch } = useNote();
-  console.log("asif", state.trash);
   useEffect(async () => {
     const data = await getCall("/api/trash");
     dispatch({ type: "GET_TRASH", payload: data.trash });

@@ -22,26 +22,9 @@ export const NoteCard = ({ item, type }) => {
     dispatch({ type: "ARCHIVED_NOTES", payload: data.archives });
     dispatch({ type: "GET_NOTES", payload: data.notes });
   };
-  const deleteFromArchive = async (item) => {
-    const token = localStorage.getItem("encodedToken");
-    const response = await axios.delete(`/api/archives/delete/${item._id}`, {
-      headers: {
-        authorization: token,
-      },
-    });
-    if (response.status === 200) {
-      const getData = async () => {
-        const response = await axios.get("/api/archives", {
-          headers: {
-            authorization: token,
-          },
-        });
-        if (response.status === 200) {
-          dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
-        }
-      };
-      getData();
-    }
+  const deleteFromArchiveHandler = async (id) => {
+    const data = await deleteCall(`/api/archives/delete/${item._id}`);
+    dispatch({ type: "ARCHIVED_NOTES", payload: data.archives });
   };
 
   const postUpdatedNote = async (notesId) => {
@@ -166,7 +149,7 @@ export const NoteCard = ({ item, type }) => {
               className="note-card-icons fa-solid fa-trash-can"
               onClick={() => {
                 moveToTrashHandler(item._id);
-                deleteFromArchive(item);
+                deleteFromArchiveHandler(item._id);
               }}
             ></i>
           )}

@@ -27,28 +27,17 @@ export const NoteCard = ({ item, type }) => {
     dispatch({ type: "ARCHIVED_NOTES", payload: data.archives });
   };
 
-  const postUpdatedNote = async (notesId) => {
-    const token = localStorage.getItem("encodedToken");
-    const response = await axios.post(
-      `/api/notes/${notesId}`,
-      {
-        note: {
-          ...item,
-          title: updatedTitle,
-          note: updatedNote,
-          tag: updatedLabel,
-          bgColor: updatedBgColor,
-        },
+  const updateNoteHandler = async (notesId) => {
+    const data = await postCall(`/api/notes/${notesId}`, {
+      note: {
+        ...item,
+        title: updatedTitle,
+        note: updatedNote,
+        tag: updatedLabel,
+        bgColor: updatedBgColor,
       },
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    );
-    if (response.status === 201) {
-      dispatch({ type: "GET_NOTES", payload: response.data.notes });
-    }
+    });
+    dispatch({ type: "GET_NOTES", payload: data.notes });
   };
 
   const inArchive = state.archive.some((note) => note._id === item._id);
@@ -81,7 +70,7 @@ export const NoteCard = ({ item, type }) => {
           value={updatedTitle}
           onChange={(e) => setUpdatedTitle(e.target.value)}
           onBlur={() => {
-            postUpdatedNote(item._id);
+            updateNoteHandler(item._id);
           }}
         />
         <input
@@ -89,14 +78,14 @@ export const NoteCard = ({ item, type }) => {
           className="note-card-items"
           value={updatedNote}
           onChange={(e) => setUpdatedNote(e.target.value)}
-          onBlur={() => postUpdatedNote(item._id)}
+          onBlur={() => updateNoteHandler(item._id)}
         />
         <input
           style={{ backgroundColor: updatedBgColor }}
           className="note-card-items"
           value={updatedLabel}
           onChange={(e) => setUpdatedLabel(e.target.value)}
-          onBlur={() => postUpdatedNote(item._id)}
+          onBlur={() => updateNoteHandler(item._id)}
         />
       </div>
 
@@ -112,7 +101,7 @@ export const NoteCard = ({ item, type }) => {
             type="color"
             onChange={(e) => setUpdatedBgColor(e.target.value)}
             onBlur={() => {
-              postUpdatedNote(item._id);
+              updateNoteHandler(item._id);
             }}
           />
 

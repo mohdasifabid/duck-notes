@@ -1,9 +1,8 @@
+import { getDefaultNormalizer } from "@testing-library/react";
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
-import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
 
 export const LoginPage = () => {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();
@@ -23,6 +22,18 @@ export const LoginPage = () => {
       navigate("/");
     }
   };
+  const guestLoginHandler = async () => {
+    const response = await axios.post("/api/auth/login", {
+      email: "ducknotes@gmail.com",
+      password: "duckNotes123",
+    });
+
+    if (response.status === 200) {
+      authDispatch({ type: "LOGIN_STATUS", payload: true });
+      localStorage.setItem("encodedToken", response.data.encodedToken);
+      navigate("/");
+    }
+  };
 
   return (
     <div className="login-page-body">
@@ -33,6 +44,7 @@ export const LoginPage = () => {
 
         <input type="password" onChange={(e) => setPassword(e.target.value)} />
         <button onClick={saveEmailPassword}>Login</button>
+        <button onClick={guestLoginHandler}>Login as Guest</button>
         <p>
           Not a user?
           <Link to="/signup">Create account</Link>

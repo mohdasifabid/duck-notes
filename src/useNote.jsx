@@ -20,6 +20,11 @@ const noteReducer = (state, action) => {
         ...state,
         searchQuery: action.payload,
       };
+    case "GET_TRASH":
+      return {
+        ...state,
+        trash: action.payload,
+      };
     default:
       return state;
   }
@@ -28,6 +33,7 @@ const initialState = {
   notes: [],
   archive: [],
   searchQuery: "",
+  trash: [],
 };
 const NoteProvider = ({ children }) => {
   const [state, dispatch] = useReducer(noteReducer, initialState);

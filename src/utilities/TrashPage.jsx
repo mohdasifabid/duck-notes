@@ -2,9 +2,16 @@ import { useNote } from "../useNote";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { getCall } from "./resuableFunctions";
 
 export const TrashPage = ({ item }) => {
   const { state, dispatch } = useNote();
+  console.log("asif", state.trash);
+  useEffect(async () => {
+    const data = await getCall("/api/trash");
+    dispatch({ type: "GET_TRASH", payload: data.trash });
+  }, []);
 
   return (
     <div className="common-big-container">

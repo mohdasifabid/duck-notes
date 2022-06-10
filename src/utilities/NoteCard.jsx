@@ -15,33 +15,12 @@ export const NoteCard = ({ item, type }) => {
     dispatch({ type: "GET_TRASH", payload: trashData.trash });
     dispatch({ type: "GET_NOTES", payload: trashData.notes });
   };
-  const archiveNote = async (item) => {
-    const token = localStorage.getItem("encodedToken");
-    const response = await axios.post(
-      `/api/notes/archives/${item._id}`,
-      {
-        item,
-      },
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    );
-    if (response.status === 201) {
-      dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
-      const getNotes = async () => {
-        const response = await axios.get("/api/notes", {
-          headers: {
-            authorization: token,
-          },
-        });
-        if (response.status === 200) {
-          dispatch({ type: "GET_NOTES", payload: response.data.notes });
-        }
-      };
-      getNotes();
-    }
+  const archiveNoteHandler = async (item) => {
+    const data = await postCall(`/api/notes/archives/${item._id}`, {
+      item,
+    });
+    dispatch({ type: "ARCHIVED_NOTES", payload: data.archives });
+    dispatch({ type: "GET_NOTES", payload: data.notes });
   };
   const deleteFromArchive = async (item) => {
     const token = localStorage.getItem("encodedToken");
@@ -166,7 +145,7 @@ export const NoteCard = ({ item, type }) => {
               style={{ color: "gray" }}
               className="note-card-icons fa-solid fa-box-archive"
               onClick={() => {
-                archiveNote(item);
+                archiveNoteHandler(item);
               }}
             ></i>
           )}

@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNote } from "../useNote";
 import "./NoteCard.css";
-import { postCall } from "./resuableFunctions";
+import { deleteCall, postCall } from "./resuableFunctions";
 export const NoteCard = ({ item, type }) => {
   const { state, dispatch } = useNote();
   const [updatedTitle, setUpdatedTitle] = useState(item.title);
@@ -97,6 +97,16 @@ export const NoteCard = ({ item, type }) => {
     dispatch({ type: "GET_NOTES", payload: data.notes });
   };
 
+  const inTrash = state.trash.some((note) => note._id === item._id);
+  const restoreFromTrashHandler = async (id) => {
+    const data = await postCall(`/api/trash/restore/${id}`, {});
+    dispatch({ type: "GET_TRASH", payload: data.trash });
+    dispatch({ type: "GET_NOTES", payload: data.notes });
+  };
+  const deleteFromTrashHandler = async (id) => {
+    const data = await deleteCall(`/api/trash/delete/${id}`);
+    dispatch({ type: "GET_TRASH", payload: data.trash });
+  };
   return (
     <div
       className="note-card-container"
@@ -159,14 +169,26 @@ export const NoteCard = ({ item, type }) => {
               }}
             ></i>
           )}
-
-          <i
-            className="note-card-icons fa-solid fa-trash-can"
-            onClick={() => {
-              moveToTrashHandler(item._id);
-              deleteFromArchive(item);
-            }}
-          ></i>
+          {inTrash ? (
+            <i
+              className="note-card-icons fa-solid fa-trash-arrow-up"
+              onClick={() => restoreFromTrashHandler(item._id)}
+            ></i>
+          ) : null}
+          {inTrash ? (
+            <i
+              className="note-card-icons fa-solid fa-trash-can"
+              onClick={() => deleteFromTrashHandler(item._id)}
+            ></i>
+          ) : (
+            <i
+              className="note-card-icons fa-solid fa-trash-can"
+              onClick={() => {
+                moveToTrashHandler(item._id);
+                deleteFromArchive(item);
+              }}
+            ></i>
+          )}
         </div>
       </div>
     </div>

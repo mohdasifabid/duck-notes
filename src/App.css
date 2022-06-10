@@ -120,3 +120,8 @@ align-items: center;
   margin-right: 1rem;
   font-size: x-large;
 }
+@media(max-width: 520px){
+  .leftbar-container{
+    display: none;
+  }
+}

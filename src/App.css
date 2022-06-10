@@ -12,7 +12,6 @@ align-items: center;
   margin: 0rem 0rem 3rem 0rem;
 }
 
-
 /* navbar */
 .navbar-search-input{
   padding: .25rem .5rem;
@@ -125,3 +124,16 @@ align-items: center;
     display: none;
   }
 }
+
+/*  */
+
+.common-big-container{
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-body{
+  display: flex;
+  flex-grow: 1;
+  }

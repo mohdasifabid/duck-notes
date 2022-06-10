@@ -163,6 +163,7 @@ export const NoteCard = ({ item, type }) => {
             ></i>
           ) : (
             <i
+              style={{ color: "gray" }}
               className="note-card-icons fa-solid fa-box-archive"
               onClick={() => {
                 archiveNote(item);
@@ -182,6 +183,7 @@ export const NoteCard = ({ item, type }) => {
             ></i>
           ) : (
             <i
+              style={{ color: "gray" }}
               className="note-card-icons fa-solid fa-trash-can"
               onClick={() => {
                 moveToTrashHandler(item._id);

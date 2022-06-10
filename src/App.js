@@ -45,7 +45,7 @@ function App() {
       </Route>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<LoginPage/>}/>
-      <Route path="/trashpage" element={<TrashPage/>}/>
+      <Route path="/trash" element={<TrashPage/>}/>
       <Route path="/labels" element={<PrivateRoute/>}>
         <Route path="/labels" element={<LabelsPage/>}/>
       </Route>

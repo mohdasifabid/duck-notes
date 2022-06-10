@@ -42,16 +42,10 @@ export const ProfilePage = ({ item }) => {
               Archive
             </span>
           </Link>
-          <Link to="/archive" className="listbar-links">
+          <Link to="/trash" className="listbar-links">
             <span className="leftbar-icon-name">
               <i class="list-bar-icons fa-solid fa-trash-can"></i>
               Trash
-            </span>
-          </Link>
-          <Link to="/profile" className="listbar-links">
-            <span className="leftbar-icon-name">
-              <i className="list-bar-icons fa-solid fa-user"></i>
-              Profile
             </span>
           </Link>
         </div>

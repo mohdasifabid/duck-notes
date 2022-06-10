@@ -29,12 +29,6 @@ export const TrashPage = ({ item }) => {
               Archive
             </span>
           </Link>
-          <Link to="/archive" className="listbar-links">
-            <span className="leftbar-icon-name">
-              <i class="list-bar-icons fa-solid fa-trash-can"></i>
-              Trash
-            </span>
-          </Link>
           <Link to="/profile" className="listbar-links">
             <span className="leftbar-icon-name">
               <i className="list-bar-icons fa-solid fa-user"></i>
@@ -44,7 +38,7 @@ export const TrashPage = ({ item }) => {
         </div>
         <div className="archive-page-body">
           <h2>Trash</h2>
-          <div className="archived-notes-container"></div>
+          <div className="archived-notes-container">132412</div>
         </div>
       </div>
       <Footer />

@@ -2,7 +2,7 @@ import axios from "axios";
 const token = localStorage.getItem("encodedToken");
 
 const getCall = async (endPoint) => {
-  const response = await axios.post(endPoint, {
+  const response = await axios.get(endPoint, {
     headers: {
       authorization: token,
     },

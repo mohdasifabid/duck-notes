@@ -1,7 +1,6 @@
 .note-card-container{
     position: relative;
     border: .1rem solid var(--secondary-color);
-    border-radius: 1rem;
 }
 .note-card-container:hover{
     box-shadow: 1px 1px 1px 1px var(--secondary-color);

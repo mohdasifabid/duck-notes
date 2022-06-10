@@ -1,6 +1,6 @@
 import "./App.css";
 import axios from "axios";
-import {Routes, Route} from "react-router-dom";
+import {Routes, Route, Navigate} from "react-router-dom";
 import { LandingPage,  } from "./utilities/LandingPage";
 import { ArchivePage } from "./utilities/ArchivePage"
 import { LabelsPage } from "./utilities/Labels";
@@ -36,15 +36,18 @@ function App() {
     }
   };
   getNotes();
-  },[])
+  },[]) 
+ 
   return (
+    
   <div>
-    <Routes>
-      <Route path="/" element={<PrivateRoute/>}>
-      <Route path="/" element={<LandingPage/>}/>
-      </Route>
+      <Routes> 
       <Route path="/signup" element={<Signup/>}/>
-      <Route path="/login" element={<LoginPage/>}/>
+       <Route path="/login" element={<LoginPage/>}/>
+      <Route path="/" element={<PrivateRoute/>}>
+         <Route path="/" element={<LandingPage/>}/>
+      </Route>
+      
       <Route path="/trash" element={<TrashPage/>}/>
       <Route path="/labels" element={<PrivateRoute/>}>
         <Route path="/labels" element={<LabelsPage/>}/>

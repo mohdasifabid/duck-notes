@@ -11,6 +11,7 @@ import { Signup } from "./utilities/Signup";
 import { PrivateRoute } from "./utilities/PrivateRoute";
 import { ProfilePage } from "./utilities/ProfilePage";
 import { useNote } from "./useNote";
+import { TrashPage } from "./utilities/TrashPage";
 
 function App() {
   const {dispatch: authDispatch, state: authState} = useAuthProvider()
@@ -44,6 +45,7 @@ function App() {
       </Route>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/login" element={<LoginPage/>}/>
+      <Route path="/trashpage" element={<TrashPage/>}/>
       <Route path="/labels" element={<PrivateRoute/>}>
         <Route path="/labels" element={<LabelsPage/>}/>
       </Route>

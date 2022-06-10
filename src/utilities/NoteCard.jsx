@@ -10,26 +10,10 @@ export const NoteCard = ({ item, type }) => {
   const [updatedBgColor, setUpdatedBgColor] = useState(item.bgColor);
   const [updatedLabel, setUpdatedLabel] = useState(item.tag);
 
-  const deleteNote = async (item) => {
-    const token = localStorage.getItem("encodedToken");
-    const response = await axios.delete(`/api/notes/${item._id}`, {
-      headers: {
-        authorization: token,
-      },
-    });
-    if (response.status === 200) {
-      const getNotes = async () => {
-        const response = await axios.get("/api/notes", {
-          headers: {
-            authorization: token,
-          },
-        });
-        if (response.status === 200) {
-          dispatch({ type: "GET_NOTES", payload: response.data.notes });
-        }
-      };
-      getNotes();
-    }
+  const moveToTrashHandler = async (id) => {
+    const trashData = await postCall(`/api/notes/trash/${id}`, {});
+    dispatch({ type: "GET_TRASH", payload: trashData.trash });
+    dispatch({ type: "GET_NOTES", payload: trashData.notes });
   };
   const archiveNote = async (item) => {
     const token = localStorage.getItem("encodedToken");
@@ -179,7 +163,7 @@ export const NoteCard = ({ item, type }) => {
           <i
             className="note-card-icons fa-solid fa-trash-can"
             onClick={() => {
-              deleteNote(item);
+              moveToTrashHandler(item._id);
               deleteFromArchive(item);
             }}
           ></i>

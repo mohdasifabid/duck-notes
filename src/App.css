@@ -53,7 +53,7 @@ align-items: center;
   height: 100vh;
 }
 .login-page-inputs-btn-container{
-  padding: 2rem;
+  padding: 2rem 3rem;
   display:flex ;
   flex-direction: column;
   justify-content: center;
@@ -84,9 +84,7 @@ align-items: center;
   align-items: center;
   height: 100vh;
 }
-.singup-page .login-page-inputs-btn-container {
-  padding: .75rem 3.5rem 0rem 3.5rem
-}
+
 
 /* footer */
 .duck-footer-container{

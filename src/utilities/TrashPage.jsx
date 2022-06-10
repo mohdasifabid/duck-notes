@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { getCall } from "./resuableFunctions";
+import { NoteCard } from "./NoteCard";
 
 export const TrashPage = ({ item }) => {
   const { state, dispatch } = useNote();
@@ -44,7 +45,11 @@ export const TrashPage = ({ item }) => {
         </div>
         <div className="archive-page-body">
           <h2>Trash</h2>
-          <div className="archived-notes-container">132412</div>
+          <div className="archived-notes-container">
+            {state.trash.map((note) => {
+              return <NoteCard type="trashed" item={note} key={note._id} />;
+            })}
+          </div>
         </div>
       </div>
       <Footer />

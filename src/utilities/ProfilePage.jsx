@@ -18,6 +18,7 @@ export const ProfilePage = ({ item }) => {
     };
     getUser();
   }, []);
+
   return (
     <div className="common-big-container">
       <Navbar />

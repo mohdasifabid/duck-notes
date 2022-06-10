@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNote } from "../useNote";
 import "./NoteCard.css";
+import { postCall } from "./resuableFunctions";
 export const NoteCard = ({ item, type }) => {
   const { state, dispatch } = useNote();
   const [updatedTitle, setUpdatedTitle] = useState(item.title);
@@ -104,6 +105,14 @@ export const NoteCard = ({ item, type }) => {
     }
   };
 
+  const inArchive = state.archive.some((note) => note._id === item._id);
+
+  const restoreArchivedNoteHandler = async (id) => {
+    const data = await postCall(`/api/archives/restore/${id}`, {});
+    dispatch({ type: "ARCHIVED_NOTES", payload: data.archives });
+    dispatch({ type: "GET_NOTES", payload: data.notes });
+  };
+
   return (
     <div
       className="note-card-container"
@@ -151,12 +160,21 @@ export const NoteCard = ({ item, type }) => {
             }}
           />
 
-          <i
-            className="note-card-icons fa-solid fa-box-archive"
-            onClick={() => {
-              archiveNote(item);
-            }}
-          ></i>
+          {inArchive ? (
+            <i
+              className="note-card-icons fa-solid fa-box-archive"
+              onClick={() => {
+                restoreArchivedNoteHandler(item._id);
+              }}
+            ></i>
+          ) : (
+            <i
+              className="note-card-icons fa-solid fa-box-archive"
+              onClick={() => {
+                archiveNote(item);
+              }}
+            ></i>
+          )}
 
           <i
             className="note-card-icons fa-solid fa-trash-can"

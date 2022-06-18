@@ -24,6 +24,12 @@ export const LandingPage = () => {
       <Navbar />
       <div className="main-body">
         <div className="leftbar-container">
+          <Link to="/" className="listbar-links">
+            <span className="leftbar-icon-name">
+              <i className="list-bar-icons fa-solid fa-home"></i>
+              Home
+            </span>
+          </Link>
           <Link to="/labels" className="listbar-links">
             <span className="leftbar-icon-name">
               <i className="list-bar-icons fa-solid fa-tag"></i>

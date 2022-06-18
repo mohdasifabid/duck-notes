@@ -18,6 +18,12 @@ export const LabelsPage = () => {
               Home
             </span>
           </Link>
+          <Link to="/labels" className="listbar-links">
+            <span className="appear-on-hover-content">
+              <i className="list-bar-icons fa-solid fa-tag"></i>
+              Labels
+            </span>
+          </Link>
           <Link to="/archive" className="listbar-links">
             <span className="leftbar-icon-name">
               <i className="list-bar-icons fa-solid fa-box-archive"></i>

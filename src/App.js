@@ -1,17 +1,18 @@
 import "./App.css";
 import axios from "axios";
-import { Routes, Route, Navigate } from "react-router-dom";
-import { LandingPage } from "./utilities/LandingPage";
-import { ArchivePage } from "./utilities/ArchivePage";
+import { useEffect } from "react";
+import { useNote } from "./useNote";
+import { Signup } from "./utilities/Signup";
+import { useAuthProvider } from "./authProvider";
 import { LabelsPage } from "./utilities/Labels";
 import { LoginPage } from "./utilities/LoginPage";
-import { useEffect } from "react";
-import { useAuthProvider } from "./authProvider";
-import { Signup } from "./utilities/Signup";
+import { TrashPage } from "./utilities/TrashPage";
+import { LandingPage } from "./utilities/LandingPage";
+import { ArchivePage } from "./utilities/ArchivePage";
 import { PrivateRoute } from "./utilities/PrivateRoute";
 import { ProfilePage } from "./utilities/ProfilePage";
-import { useNote } from "./useNote";
-import { TrashPage } from "./utilities/TrashPage";
+import { loginStatus } from "./utilities/authActionTypes";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 function App() {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();
@@ -20,9 +21,9 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem("encodedToken");
     if (token) {
-      authDispatch({ type: "LOGIN_STATUS", payload: true });
+      authDispatch({ type: loginStatus, payload: true });
     } else {
-      authDispatch({ type: "LOGIN_STATUS", payload: false });
+      authDispatch({ type: loginStatus, payload: false });
     }
 
     const getNotes = async () => {

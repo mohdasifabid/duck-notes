@@ -1,8 +1,8 @@
-import { getDefaultNormalizer } from "@testing-library/react";
 import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
+import { loginStatus } from "./authActionTypes";
 
 export const LoginPage = () => {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();
@@ -17,7 +17,7 @@ export const LoginPage = () => {
     });
 
     if (response.status === 200) {
-      authDispatch({ type: "LOGIN_STATUS", payload: true });
+      authDispatch({ type: loginStatus, payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
       navigate("/");
     }
@@ -27,10 +27,9 @@ export const LoginPage = () => {
       email: "ducknotes@gmail.com",
       password: "duckNotes123",
     });
-    console.log(response);
     if (response.status === 200) {
       localStorage.setItem("encodedToken", response.data.encodedToken);
-      authDispatch({ type: "LOGIN_STATUS", payload: true });
+      authDispatch({ type: loginStatus, payload: true });
       navigate("/");
     }
   };

@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
+import { signupStatus } from "./authActionTypes";
 import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 
@@ -21,7 +22,7 @@ export const Signup = () => {
       password: password,
     });
     if (response.status === 201) {
-      authDispatch({ type: "SIGNUP_STATUS", payload: true });
+      authDispatch({ type: signupStatus, payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
       navigate("/");
     }

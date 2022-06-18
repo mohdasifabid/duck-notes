@@ -31,8 +31,8 @@ export const Navbar = () => {
           className="navbar-login"
           to="/login"
           onClick={() => {
-            authDispatch({ type: "LOGIN_STATUS", payload: false });
-            authDispatch({ type: "SIGNUP_STATUS", payload: false });
+            authDispatch({ type: loginStatus, payload: false });
+            authDispatch({ type: signupStatus, payload: false });
             localStorage.removeItem("encodedToken");
           }}
         >

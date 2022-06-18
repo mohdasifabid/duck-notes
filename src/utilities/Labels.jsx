@@ -1,8 +1,5 @@
 import { useNote } from "../useNote";
-import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
 import { NoteCard } from "./NoteCard";
-import { Link } from "react-router-dom";
 import { Layout } from "./Layout";
 
 export const LabelsPage = () => {

@@ -1,9 +1,9 @@
-import { useNote } from "../useNote";
 import { useEffect } from "react";
-import { getCall } from "./resuableFunctions";
+import { Layout } from "./Layout";
+import { useNote } from "../useNote";
 import { NoteCard } from "./NoteCard";
 import { getTrash } from "./noteActionTypes";
-import { Layout } from "./Layout";
+import { getCall } from "./resuableFunctions";
 
 export const TrashPage = ({ item }) => {
   const { state, dispatch } = useNote();

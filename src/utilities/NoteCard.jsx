@@ -1,9 +1,9 @@
-import axios from "axios";
+import "./NoteCard.css";
 import { useState } from "react";
 import { useNote } from "../useNote";
-import { archivedNotes, getNotes, getTrash } from "./noteActionTypes";
-import "./NoteCard.css";
 import { deleteCall, postCall } from "./resuableFunctions";
+import { archivedNotes, getNotes, getTrash } from "./noteActionTypes";
+
 export const NoteCard = ({ item, type }) => {
   const { state, dispatch } = useNote();
   const [updatedTitle, setUpdatedTitle] = useState(item.title);

@@ -1,5 +1,4 @@
 import "./App.css";
-import axios from "axios";
 import { useEffect } from "react";
 import { useNote } from "./useNote";
 import { Signup } from "./utilities/Signup";
@@ -12,13 +11,14 @@ import { ArchivePage } from "./utilities/ArchivePage";
 import { PrivateRoute } from "./utilities/PrivateRoute";
 import { ProfilePage } from "./utilities/ProfilePage";
 import { loginStatus } from "./utilities/authActionTypes";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { getCall } from "./utilities/resuableFunctions";
 
 function App() {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();
-  const { state, dispatch } = useNote();
+  const { dispatch } = useNote();
 
-  useEffect(() => {
+  useEffect(async () => {
     const token = localStorage.getItem("encodedToken");
     if (token) {
       authDispatch({ type: loginStatus, payload: true });
@@ -26,17 +26,8 @@ function App() {
       authDispatch({ type: loginStatus, payload: false });
     }
 
-    const getNotes = async () => {
-      const response = await axios.get("/api/notes", {
-        headers: {
-          authorization: token,
-        },
-      });
-      if (response.status === 200) {
-        dispatch({ type: getNotes, payload: response.data.notes });
-      }
-    };
-    getNotes();
+    const data = await getCall("/api/notes");
+    dispatch({ type: getNotes, payload: data.notes });
   }, []);
 
   return (

@@ -1,25 +1,15 @@
-import axios from "axios";
+import { Layout } from "./Layout";
 import { useEffect } from "react";
 import { useNote } from "../useNote";
 import { NoteCard } from "./NoteCard";
-import { Layout } from "./Layout";
 import { archivedNotes } from "./noteActionTypes";
 
-export const ArchivePage = ({ item }) => {
+export const ArchivePage = () => {
   const { state, dispatch } = useNote();
-  useEffect(() => {
-    const getData = async () => {
-      const token = localStorage.getItem("encodedToken");
-      const response = await axios.get("/api/archives", {
-        headers: {
-          authorization: token,
-        },
-      });
-      if (response.status === 200) {
-        dispatch({ type: archivedNotes, payload: response.data.archives });
-      }
-    };
-    getData();
+
+  useEffect(async () => {
+    const data = await get("/api/archives");
+    dispatch({ type: archivedNotes, payload: data.archives });
   }, []);
 
   const searchNoteFunction = (data, meter) => {

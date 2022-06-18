@@ -7,7 +7,7 @@ const authReducer = (state, action) => {
     case "LOGIN_STATUS":
       return {
         ...state,
-        isLogin: action.payload,
+        isLoggedIn: action.payload,
       };
     case "SIGNUP_STATUS":
       return {
@@ -19,7 +19,7 @@ const authReducer = (state, action) => {
   }
 };
 const initialState = {
-  isLogin: false,
+  isLoggedIn: false,
   isSignedUp: false,
 };
 const AuthProvider = ({ children }) => {

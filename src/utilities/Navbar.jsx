@@ -26,7 +26,7 @@ export const Navbar = () => {
           }
         />
       </div>
-      {authState.isLogin === true || authState.isSignedUp === true ? (
+      {authState.isLoggedIn === true || authState.isSignedUp === true ? (
         <Link
           className="navbar-login"
           to="/login"

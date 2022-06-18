@@ -27,10 +27,10 @@ export const LoginPage = () => {
       email: "ducknotes@gmail.com",
       password: "duckNotes123",
     });
-
+    console.log(response);
     if (response.status === 200) {
-      authDispatch({ type: "LOGIN_STATUS", payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
+      authDispatch({ type: "LOGIN_STATUS", payload: true });
       navigate("/");
     }
   };

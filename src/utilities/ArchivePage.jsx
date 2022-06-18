@@ -5,6 +5,7 @@ import { Footer } from "./Footer";
 import { Navbar } from "./Navbar";
 import { NoteCard } from "./NoteCard";
 import { Link } from "react-router-dom";
+import { archivedNotes } from "./noteActionTypes";
 
 export const ArchivePage = ({ item }) => {
   const { state, dispatch } = useNote();
@@ -17,7 +18,7 @@ export const ArchivePage = ({ item }) => {
         },
       });
       if (response.status === 200) {
-        dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
+        dispatch({ type: archivedNotes, payload: response.data.archives });
       }
     };
     getData();

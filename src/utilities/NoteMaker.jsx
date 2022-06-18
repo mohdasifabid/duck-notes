@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useNote } from "../useNote";
-import { v4 as uuid } from "uuid";
 import "./NoteMaker.css";
 import axios from "axios";
+import { getNotes } from "./noteActionTypes";
 
 export const NoteMaker = () => {
   const { state, dispatch } = useNote();
@@ -33,7 +33,7 @@ export const NoteMaker = () => {
     );
 
     if (response.status === 201) {
-      const getNotes = async () => {
+      const getNotesHandler = async () => {
         const token = localStorage.getItem("encodedToken");
         const response = await axios.get("/api/notes", {
           headers: {
@@ -41,10 +41,10 @@ export const NoteMaker = () => {
           },
         });
         if (response.status === 200) {
-          dispatch({ type: "GET_NOTES", payload: response.data.notes });
+          dispatch({ type: getNotes, payload: response.data.notes });
         }
       };
-      getNotes();
+      getNotesHandler();
     }
     setTitle("");
     setLabel("");

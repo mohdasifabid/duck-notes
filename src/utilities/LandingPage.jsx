@@ -20,14 +20,10 @@ export const LandingPage = () => {
   return (
     <Layout>
       <div className="landing-page-body">
-        <div className="landing-page-note-maker-container">
-          <NoteMaker />
-        </div>
-        <div className="landing-page-note-cards-container">
-          {filteredNotes.map((item) => {
-            return <NoteCard item={item} key={item._id} type="newNote" />;
-          })}
-        </div>
+        <NoteMaker />
+        {filteredNotes.map((item) => {
+          return <NoteCard item={item} key={item._id} type="newNote" />;
+        })}
       </div>
     </Layout>
   );

@@ -26,11 +26,9 @@ export const ArchivePage = () => {
     <Layout>
       <div className="archive-page-body">
         <h2>Archived notes</h2>
-        <div className="archived-notes-container">
-          {filteredArchive.map((item) => {
-            return <NoteCard type="archived" item={item} key={item._id} />;
-          })}
-        </div>
+        {filteredArchive.map((item) => {
+          return <NoteCard type="archived" item={item} key={item._id} />;
+        })}
       </div>
     </Layout>
   );

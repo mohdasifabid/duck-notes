@@ -16,11 +16,9 @@ export const TrashPage = ({ item }) => {
     <Layout>
       <div className="archive-page-body">
         <h2>Trash</h2>
-        <div className="archived-notes-container">
-          {state.trash.map((note) => {
-            return <NoteCard type="trashed" item={note} key={note._id} />;
-          })}
-        </div>
+        {state.trash.map((note) => {
+          return <NoteCard type="trashed" item={note} key={note._id} />;
+        })}
       </div>
     </Layout>
   );

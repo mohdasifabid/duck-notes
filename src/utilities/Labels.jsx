@@ -8,17 +8,14 @@ export const LabelsPage = () => {
   return (
     <Layout>
       <div className="archive-page-body">
-        <h1>Labelled notes</h1>
-        <div className="archived-notes-container">
-          {state.notes.map((item) => {
-            return (
-              <div key={item._id}>
-                <h2>{item.tag}</h2>
-                <NoteCard type="label" item={item} />
-              </div>
-            );
-          })}
-        </div>
+        {state.notes.map((item) => {
+          return (
+            <>
+              <p>{item.tag}</p>
+              <NoteCard type="label" item={item} key={item._id} />
+            </>
+          );
+        })}
       </div>
     </Layout>
   );

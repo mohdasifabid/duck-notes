@@ -39,7 +39,7 @@ export const Layout = ({ children }) => {
             </span>
           </Link>
         </div>
-        <div className="landing-page-body">{children}</div>
+        {children}
       </div>
       <Footer />
     </div>

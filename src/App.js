@@ -13,6 +13,7 @@ import { ProfilePage } from "./utilities/ProfilePage";
 import { loginStatus } from "./utilities/authActionTypes";
 import { Routes, Route } from "react-router-dom";
 import { getCall } from "./utilities/resuableFunctions";
+import { getNotes } from "./utilities/noteActionTypes";
 
 function App() {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();

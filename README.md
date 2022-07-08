@@ -1,4 +1,5 @@
-How to run the app locally?
+# Duck Notes | A Note Taking App
+## How to run the app locally?
 $https://github.com/mdarif6/my-note-app
 $ cd my-note-app
 $ npm install

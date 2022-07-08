@@ -1,12 +1,7 @@
 # Duck Notes | A Note Taking App
 ## How to run the app locally?
 
-``$https://https://github.com/mohdasifabid/duck-notes
-<br/>
-$ cd my-note-app
-<br/>
-$ npm install
-$ npm start``
+``$https://https://github.com/mohdasifabid/duck-notes  $ cd my-note-app  $ npm install  $ npm start``
 
 ## Screens in this project
 * Landing Page

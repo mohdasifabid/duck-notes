@@ -2,11 +2,10 @@
 ## How to run the app locally?
 
 ``$https://https://github.com/mohdasifabid/duck-notes
-
+<br/>
 $ cd my-note-app
-
+<br/>
 $ npm install
-
 $ npm start``
 
 ## Screens in this project

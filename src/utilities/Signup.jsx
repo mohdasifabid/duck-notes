@@ -14,7 +14,8 @@ export const Signup = () => {
 
   const saveNewUserInfo = async () => {
     const response = await axios.post("/api/auth/signup", {
-      name: name,
+      firstName: name,
+      lastName: "",
       email: email,
       confirmedEmail: confirmedEmail,
       password: password,
@@ -22,7 +23,7 @@ export const Signup = () => {
     if (response.status === 201) {
       authDispatch({ type: signupStatus, payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
-      navigate("/");
+      navigate("/login");
     }
   };
 

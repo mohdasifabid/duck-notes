@@ -7,9 +7,9 @@ $ npm install
 $ npm start
 
 ## Screens in this project
--Landing Page
--Home Page
--Authentication (Login, Signup and Logout) Pages
+1. Landing Page
+2. Home Page
+* Authentication (Login, Signup and Logout) Pages
 -Archive Page
 -Trash Page
 -Label Page

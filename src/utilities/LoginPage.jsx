@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
 import { loginStatus } from "./authActionTypes";
 
@@ -29,6 +29,11 @@ export const LoginPage = () => {
     });
     if (response.status === 200) {
       localStorage.setItem("encodedToken", response.data.encodedToken);
+      console.log(response.data.foundUser);
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(response.data.foundUser)
+      );
       authDispatch({ type: loginStatus, payload: true });
       navigate("/");
     }
@@ -46,7 +51,9 @@ export const LoginPage = () => {
         <button onClick={guestLoginHandler}>Login as Guest</button>
         <p>
           Not a user?
-          <Link to="/signup">Create account</Link>
+          <a className="navLink" onClick={() => navigate("/signup")}>
+            Create account
+          </a>
         </p>
       </div>
     </div>

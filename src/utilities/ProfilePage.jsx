@@ -1,28 +1,19 @@
-import { useNote } from "../useNote";
-import { useEffect } from "react";
-import axios from "axios";
 import { Layout } from "./Layout";
 
 export const ProfilePage = ({ item }) => {
-  const { state } = useNote();
-  useEffect(() => {
-    const token = localStorage.getItem("encodedToken");
-    const getUser = async () => {
-      const response = await axios.get("/api/user", {
-        headers: {
-          authorization: token,
-        },
-      });
-    };
-    getUser();
-  }, []);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   return (
     <Layout>
       <div className="archive-page-body">
-        <p> Profile</p>
-        <p> Name</p>
-        <p> Email</p>
+        <h2>User Info</h2>
+        <p>
+          {" "}
+          Name:{" "}
+          {currentUser &&
+            currentUser.firstName + " " + currentUser.lastName}{" "}
+        </p>
+        <p> Email: {currentUser && currentUser.email}</p>
       </div>
     </Layout>
   );

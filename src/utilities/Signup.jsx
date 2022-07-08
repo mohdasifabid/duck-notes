@@ -1,10 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
 import { signupStatus } from "./authActionTypes";
-import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
 
 export const Signup = () => {
   const { dispatch: authDispatch } = useAuthProvider();
@@ -16,7 +14,8 @@ export const Signup = () => {
 
   const saveNewUserInfo = async () => {
     const response = await axios.post("/api/auth/signup", {
-      name: name,
+      firstName: name,
+      lastName: "",
       email: email,
       confirmedEmail: confirmedEmail,
       password: password,
@@ -24,7 +23,7 @@ export const Signup = () => {
     if (response.status === 201) {
       authDispatch({ type: signupStatus, payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
-      navigate("/");
+      navigate("/login");
     }
   };
 
@@ -48,7 +47,11 @@ export const Signup = () => {
 
         <button onClick={saveNewUserInfo}>signup</button>
         <p>
-          Already a user? <Link to="/login"> Login here</Link>
+          Already a user?{" "}
+          <a className="navLink" onClick={() => navigate("/login")}>
+            {" "}
+            Login here
+          </a>
         </p>
       </div>
     </div>

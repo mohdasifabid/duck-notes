@@ -1,12 +1,15 @@
 import { ListBar } from "./ListBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useNote } from "../useNote";
 import { useAuthProvider } from "../authProvider";
 import { searchedNote } from "./noteActionTypes";
+import { loginStatus, signupStatus } from "./authActionTypes";
 
 export const Navbar = () => {
-  const { state, dispatch } = useNote();
+  const { dispatch } = useNote();
+  const navigate = useNavigate();
   const { state: authState, dispatch: authDispatch } = useAuthProvider();
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   return (
     <div className="duck-navbar-container">
@@ -27,21 +30,23 @@ export const Navbar = () => {
         />
       </div>
       {authState.isLoggedIn === true || authState.isSignedUp === true ? (
-        <Link
+        <span
           className="navbar-login"
-          to="/login"
           onClick={() => {
             authDispatch({ type: loginStatus, payload: false });
             authDispatch({ type: signupStatus, payload: false });
             localStorage.removeItem("encodedToken");
           }}
         >
-          Logout
-        </Link>
+          <i className="fa-solid fa-user"></i>
+          <span style={{ paddingLeft: ".5rem" }}>
+            {currentUser && currentUser.firstName + " " + currentUser.lastName}
+          </span>
+        </span>
       ) : (
-        <Link to="/login" className="navbar-login">
-          Login
-        </Link>
+        <span className="navbar-login" onClick={() => navigate("/login")}>
+          <i className="fa-regular fa-user"></i>
+        </span>
       )}
     </div>
   );

@@ -21,6 +21,7 @@ export const LabelsPage = () => {
   return (
     <Layout>
       <div className="archive-page-body">
+        <h2>Labelled Notes</h2>
         {Object.keys(newObj).map((lab) => {
           return (
             <React.Fragment key={lab}>

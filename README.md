@@ -7,12 +7,12 @@ $ npm install
 $ npm start
 
 ## Screens in this project
-Landing Page
-Home Page
-Authentication (Login, Signup and Logout) Pages
-Archive Page
-Trash Page
-Label Page
+-Landing Page
+-Home Page
+-Authentication (Login, Signup and Logout) Pages
+-Archive Page
+-Trash Page
+-Label Page
 
 ## Features
 Landing Page with two options- it asks to register yourself or if you already register then you can continue after login.

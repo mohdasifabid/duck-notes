@@ -23,14 +23,14 @@ export const LabelsPage = () => {
       <div className="archive-page-body">
         {Object.keys(newObj).map((lab) => {
           return (
-            <>
+            <React.Fragment key={lab}>
               <p>
                 <strong>{lab}</strong>
               </p>
               {newObj[lab].map((item) => {
                 return <NoteCard type="label" item={item} key={item._id} />;
               })}
-            </>
+            </React.Fragment>
           );
         })}
       </div>

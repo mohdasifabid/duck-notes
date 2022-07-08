@@ -4,6 +4,7 @@ import {
   archivedNotes,
   getNotes,
   getTrash,
+  pinnedNotes,
   searchedNote,
 } from "./utilities/noteActionTypes";
 const NoteContext = createContext();
@@ -31,6 +32,11 @@ const noteReducer = (state, action) => {
         ...state,
         trash: action.payload,
       };
+    case pinnedNotes:
+      return {
+        ...state,
+        pinned: [...state.pinned, action.payload],
+      };
     default:
       return state;
   }
@@ -40,6 +46,7 @@ const initialState = {
   archive: [],
   searchQuery: "",
   trash: [],
+  pinned: [],
 };
 const NoteProvider = ({ children }) => {
   const [state, dispatch] = useReducer(noteReducer, initialState);

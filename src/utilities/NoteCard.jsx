@@ -2,7 +2,12 @@ import "./NoteCard.css";
 import { useState } from "react";
 import { useNote } from "../useNote";
 import { deleteCall, postCall } from "./resuableFunctions";
-import { archivedNotes, getNotes, getTrash } from "./noteActionTypes";
+import {
+  archivedNotes,
+  getNotes,
+  getTrash,
+  pinnedNotes,
+} from "./noteActionTypes";
 
 export const NoteCard = ({ item, type }) => {
   const { state, dispatch } = useNote();
@@ -55,9 +60,22 @@ export const NoteCard = ({ item, type }) => {
     dispatch({ type: getTrash, payload: data.trash });
     dispatch({ type: getNotes, payload: data.notes });
   };
+
   const deleteFromTrashHandler = async (id) => {
     const data = await deleteCall(`/api/trash/delete/${id}`);
     dispatch({ type: getTrash, payload: data.trash });
+  };
+
+  const addToPinnedHandler = (item) =>
+    dispatch({ type: pinnedNotes, payload: item });
+
+  const isPinned = state.pinned.some((note) => note._id === item._id);
+  const deleteFromPinnedHandler = (item) => {
+    let index = state.pinned.findIndex((note) => note._id === item._id);
+    let foundUnpinned = state.pinned.find((note) => note._id === item._id);
+    state.pinned.splice(index, 1);
+    dispatch({type: getNotes, })
+    console.log(newPinnedArr);
   };
   return (
     <div
@@ -141,6 +159,18 @@ export const NoteCard = ({ item, type }) => {
                 moveToTrashHandler(item._id);
                 deleteFromArchiveHandler(item._id);
               }}
+            ></i>
+          )}
+          {isPinned ? (
+            <i
+              style={{ color: "gray" }}
+              className="fa-solid fa-thumbtack"
+              onClick={() => deleteFromPinnedHandler(item)}
+            ></i>
+          ) : (
+            <i
+              className="fa-solid fa-thumbtack"
+              onClick={() => addToPinnedHandler(item)}
             ></i>
           )}
         </div>

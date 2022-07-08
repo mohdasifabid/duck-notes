@@ -1,28 +1,39 @@
 import { useNote } from "../useNote";
-import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
 import { NoteCard } from "./NoteCard";
+import { Layout } from "./Layout";
+import React, { useEffect } from "react";
 
-export const LabelsPage = ({ item }) => {
+export const LabelsPage = () => {
   const { state } = useNote();
-
+  const tagged = () => {
+    let notesArr = state.notes;
+    let obj = {};
+    for (let i = 0; i < notesArr.length; i++) {
+      if (obj[notesArr[i].tag] === undefined) {
+        obj[notesArr[i].tag] = [notesArr[i]];
+      } else {
+        obj[notesArr[i].tag] = [...obj[notesArr[i].tag], notesArr[i]];
+      }
+    }
+    return obj;
+  };
+  let newObj = tagged();
   return (
-    <div>
-      <Navbar />
+    <Layout>
       <div className="archive-page-body">
-        <h1>Labelled notes</h1>
-        <div className="archived-notes-container">
-          {state.notes.map((item) => {
-            return (
-              <div key={item.id}>
-                <h2>{item.tag}</h2>
-                <NoteCard type="label" item={item} />
-              </div>
-            );
-          })}
-        </div>
+        {Object.keys(newObj).map((lab) => {
+          return (
+            <React.Fragment key={lab}>
+              <p>
+                <strong>{lab}</strong>
+              </p>
+              {newObj[lab].map((item) => {
+                return <NoteCard type="label" item={item} key={item._id} />;
+              })}
+            </React.Fragment>
+          );
+        })}
       </div>
-      <Footer />
-    </div>
+    </Layout>
   );
 };

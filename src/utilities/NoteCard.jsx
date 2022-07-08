@@ -1,127 +1,110 @@
-import axios from "axios";
+import "./NoteCard.css";
 import { useState } from "react";
 import { useNote } from "../useNote";
-import "./NoteCard.css";
+import { deleteCall, postCall } from "./resuableFunctions";
+import {
+  archivedNotes,
+  getNotes,
+  getTrash,
+  pinnedNotes,
+} from "./noteActionTypes";
+
 export const NoteCard = ({ item, type }) => {
   const { state, dispatch } = useNote();
-  const [titleUpdate, setTitleUpdate] = useState(item.title);
-  const [noteUpdate, setNoteUpdate] = useState(item.note);
-  const [bgColor, setBgColor] = useState(item.bgColor);
-  const [labelUpdate, setLabelUpdate] = useState(item.tag);
+  const [updatedTitle, setUpdatedTitle] = useState(item.title);
+  const [updatedNote, setUpdatedNote] = useState(item.note);
+  const [updatedBgColor, setUpdatedBgColor] = useState(item.bgColor);
+  const [updatedLabel, setUpdatedLabel] = useState(item.tag);
 
-  const deleteNote = async (item) => {
-    const token = localStorage.getItem("encodedToken");
-    const response = await axios.delete(`/api/notes/${item._id}`, {
-      headers: {
-        authorization: token,
-      },
-    });
-    if (response.status === 200) {
-      const getNotes = async () => {
-        const token = localStorage.getItem("encodedToken");
-        const response = await axios.get("/api/notes", {
-          headers: {
-            authorization: token,
-          },
-        });
-        if (response.status === 200) {
-          dispatch({ type: "GET_NOTES", payload: response.data.notes });
-        }
-      };
-      getNotes();
-    }
+  const moveToTrashHandler = async (id) => {
+    const trashData = await postCall(`/api/notes/trash/${id}`, {});
+    dispatch({ type: getTrash, payload: trashData.trash });
+    dispatch({ type: getNotes, payload: trashData.notes });
   };
-  const archiveNote = async (item) => {
-    const token = localStorage.getItem("encodedToken");
-    const response = await axios.post(
-      `/api/notes/archives/${item._id}`,
-      {
-        item,
-      },
-      {
-        headers: {
-          authorization: token,
-        },
-      }
-    );
-    if (response.status === 201) {
-      dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
-      const getNotes = async () => {
-        const token = localStorage.getItem("encodedToken");
-        const response = await axios.get("/api/notes", {
-          headers: {
-            authorization: token,
-          },
-        });
-        if (response.status === 200) {
-          dispatch({ type: "GET_NOTES", payload: response.data.notes });
-        }
-      };
-      getNotes();
-    }
-  };
-  const deleteFromArchive = async (item) => {
-    const token = localStorage.getItem("encodedToken");
-    const response = await axios.delete(`/api/archives/delete/${item._id}`, {
-      headers: {
-        authorization: token,
-      },
+  const archiveNoteHandler = async (item) => {
+    const data = await postCall(`/api/notes/archives/${item._id}`, {
+      item,
     });
-    if (response.status === 200) {
-      const getData = async () => {
-        const token = localStorage.getItem("encodedToken");
-        const response = await axios.get("/api/archives", {
-          headers: {
-            authorization: token,
-          },
-        });
-        if (response.status === 200) {
-          dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
-        }
-      };
-      getData();
-    }
+    dispatch({ type: archivedNotes, payload: data.archives });
+    dispatch({ type: getNotes, payload: data.notes });
+  };
+  const deleteFromArchiveHandler = async (id) => {
+    const data = await deleteCall(`/api/archives/delete/${item._id}`);
+    dispatch({ type: archivedNotes, payload: data.archives });
   };
 
+  const updateNoteHandler = async (notesId) => {
+    const data = await postCall(`/api/notes/${notesId}`, {
+      note: {
+        ...item,
+        title: updatedTitle,
+        note: updatedNote,
+        tag: updatedLabel,
+        bgColor: updatedBgColor,
+      },
+    });
+    dispatch({ type: getNotes, payload: data.notes });
+  };
+
+  const inArchive = state.archive.some((note) => note._id === item._id);
+
+  const restoreArchivedNoteHandler = async (id) => {
+    const data = await postCall(`/api/archives/restore/${id}`, {});
+    dispatch({ type: archivedNotes, payload: data.archives });
+    dispatch({ type: getNotes, payload: data.notes });
+  };
+
+  const inTrash = state.trash.some((note) => note._id === item._id);
+  const restoreFromTrashHandler = async (id) => {
+    const data = await postCall(`/api/trash/restore/${id}`, {});
+    dispatch({ type: getTrash, payload: data.trash });
+    dispatch({ type: getNotes, payload: data.notes });
+  };
+
+  const deleteFromTrashHandler = async (id) => {
+    const data = await deleteCall(`/api/trash/delete/${id}`);
+    dispatch({ type: getTrash, payload: data.trash });
+  };
+
+  const addToPinnedHandler = (item) =>
+    dispatch({ type: pinnedNotes, payload: item });
+
+  const isPinned = state.pinned.some((note) => note._id === item._id);
+  const deleteFromPinnedHandler = (item) => {
+    let index = state.pinned.findIndex((note) => note._id === item._id);
+    let foundUnpinned = state.pinned.find((note) => note._id === item._id);
+    state.pinned.splice(index, 1);
+    dispatch({type: getNotes, })
+    console.log(newPinnedArr);
+  };
   return (
-    <div className="note-card-container" style={{ backgroundColor: bgColor }}>
+    <div
+      className="note-card-container"
+      style={{ backgroundColor: updatedBgColor }}
+    >
       <div className="note-card-inputs-container">
         <input
-          style={{ backgroundColor: bgColor }}
+          style={{ backgroundColor: updatedBgColor }}
           className="note-card-items"
-          value={titleUpdate}
-          onChange={(e) => setTitleUpdate(e.target.value)}
+          value={updatedTitle}
+          onChange={(e) => setUpdatedTitle(e.target.value)}
           onBlur={() => {
-            updateNote(item);
-            dispatch({
-              type: "UPDATE_NOTE",
-              payload: { ...item, title: titleUpdate, note: noteUpdate },
-            });
+            updateNoteHandler(item._id);
           }}
         />
         <input
-          style={{ backgroundColor: bgColor }}
+          style={{ backgroundColor: updatedBgColor }}
           className="note-card-items"
-          value={noteUpdate}
-          onChange={(e) => setNoteUpdate(e.target.value)}
-          onBlur={() =>
-            dispatch({
-              type: "UPDATE_NOTE",
-              payload: { ...item, title: titleUpdate, note: noteUpdate },
-            })
-          }
+          value={updatedNote}
+          onChange={(e) => setUpdatedNote(e.target.value)}
+          onBlur={() => updateNoteHandler(item._id)}
         />
         <input
-          style={{ backgroundColor: bgColor }}
+          style={{ backgroundColor: updatedBgColor }}
           className="note-card-items"
-          value={labelUpdate}
-          onChange={(e) => setLabelUpdate(e.target.value)}
-          onBlur={() =>
-            dispatch({
-              type: "UPDATE_NOTE",
-              payload: { ...item, label: labelUpdate },
-            })
-          }
+          value={updatedLabel}
+          onChange={(e) => setUpdatedLabel(e.target.value)}
+          onBlur={() => updateNoteHandler(item._id)}
         />
       </div>
 
@@ -133,33 +116,63 @@ export const NoteCard = ({ item, type }) => {
         <div className="bottom-right-side">
           <input
             className="bottom-right-side-color-input"
-            value={bgColor}
+            value={updatedBgColor}
             type="color"
-            onChange={(e) => setBgColor(e.target.value)}
+            onChange={(e) => setUpdatedBgColor(e.target.value)}
             onBlur={() => {
-              dispatch({
-                type: "UPDATE_NOTE",
-                payload: { ...item, bgColor },
-              });
+              updateNoteHandler(item._id);
             }}
           />
 
-          <i class="fa-solid fa-tag"></i>
-
-          <i
-            class="note-card-icons fa-solid fa-box-archive"
-            onClick={() => {
-              archiveNote(item);
-            }}
-          ></i>
-
-          <i
-            class="note-card-icons fa-solid fa-trash-can"
-            onClick={() => {
-              deleteNote(item);
-              deleteFromArchive(item);
-            }}
-          ></i>
+          {inArchive ? (
+            <i
+              className="note-card-icons fa-solid fa-box-archive"
+              onClick={() => {
+                restoreArchivedNoteHandler(item._id);
+              }}
+            ></i>
+          ) : (
+            <i
+              style={{ color: "gray" }}
+              className="note-card-icons fa-solid fa-box-archive"
+              onClick={() => {
+                archiveNoteHandler(item);
+              }}
+            ></i>
+          )}
+          {inTrash ? (
+            <i
+              className="note-card-icons fa-solid fa-trash-arrow-up"
+              onClick={() => restoreFromTrashHandler(item._id)}
+            ></i>
+          ) : null}
+          {inTrash ? (
+            <i
+              className="note-card-icons fa-solid fa-trash-can"
+              onClick={() => deleteFromTrashHandler(item._id)}
+            ></i>
+          ) : (
+            <i
+              style={{ color: "gray" }}
+              className="note-card-icons fa-solid fa-trash-can"
+              onClick={() => {
+                moveToTrashHandler(item._id);
+                deleteFromArchiveHandler(item._id);
+              }}
+            ></i>
+          )}
+          {isPinned ? (
+            <i
+              style={{ color: "gray" }}
+              className="fa-solid fa-thumbtack"
+              onClick={() => deleteFromPinnedHandler(item)}
+            ></i>
+          ) : (
+            <i
+              className="fa-solid fa-thumbtack"
+              onClick={() => addToPinnedHandler(item)}
+            ></i>
+          )}
         </div>
       </div>
     </div>

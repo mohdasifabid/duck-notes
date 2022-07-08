@@ -40,3 +40,9 @@
 .listbar-links{
     text-decoration: none;
 }
+
+@media (min-width: 520px){
+    .icons-container{
+        display: none;
+    }
+}

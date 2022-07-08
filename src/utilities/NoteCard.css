@@ -1,31 +1,18 @@
-
 .note-card-container{
     position: relative;
-    border: .1rem solid var(--secondary-color);
-    border-radius: 1rem;
+    border: 2px solid var(--secondary-color);
+    width: 60%;
 }
 .note-card-container:hover{
-    box-shadow: .1rem .1rem .1rem .1rem var(--secondary-color);
+    box-shadow: 1px 1px 1px 1px var(--secondary-color);
 }
 .note-card-items{
     padding: 0 1rem;
-}
-.note-card-pin-icon{
-    position: absolute;
-    right: .5rem;
-    top: .5rem;
-    padding: .5rem;
-    cursor: pointer;
-}
-.note-card-pin-icon:hover{
-    background-color: var(--secondary-color);
-    border-radius: 50%;
 }
 .note-card-icons{
     color: var(--primary-color);
     padding: 0 1rem;
     cursor: pointer;
-    /* background-color: aqua; */
 }
 .note-card-delete-icon{
     position: absolute;
@@ -51,4 +38,10 @@
 }
 .bottom-right-side-color-input{
     margin-right: 1rem;
+}
+
+@media(max-width: 520px){
+    .note-card-container{
+        width: 100%;
+    }
 }

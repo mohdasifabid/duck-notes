@@ -1,41 +1,41 @@
 import { act } from "@testing-library/react";
 import { createContext, useContext, useReducer } from "react";
+import {
+  archivedNotes,
+  getNotes,
+  getTrash,
+  pinnedNotes,
+  searchedNote,
+} from "./utilities/noteActionTypes";
 const NoteContext = createContext();
 const useNote = () => useContext(NoteContext);
 
 const noteReducer = (state, action) => {
   switch (action.type) {
-    case "GET_NOTES":
+    case getNotes:
       return {
         ...state,
         notes: action.payload,
       };
-    case "ARCHIVED_NOTES":
+    case archivedNotes:
       return {
         ...state,
         archive: action.payload,
       };
-
-    case "UPDATE_NOTE":
-      const copyForUpdate = [...state.notes];
-      const indexOfUpdateNote = copyForUpdate.findIndex(
-        (item) => item.id === action.payload.id
-      );
-      copyForUpdate[indexOfUpdateNote] = action.payload;
-      return {
-        ...state,
-        notes: copyForUpdate,
-      };
-
-    case "SEARCH_NOTE":
+    case searchedNote:
       return {
         ...state,
         searchQuery: action.payload,
       };
-    case "PIN_NOTE":
+    case getTrash:
       return {
         ...state,
-        pinnedNotes: [...state.pinnedNotes, action.payload],
+        trash: action.payload,
+      };
+    case pinnedNotes:
+      return {
+        ...state,
+        pinned: [...state.pinned, action.payload],
       };
     default:
       return state;
@@ -43,9 +43,10 @@ const noteReducer = (state, action) => {
 };
 const initialState = {
   notes: [],
-  pinnedNotes: [],
   archive: [],
   searchQuery: "",
+  trash: [],
+  pinned: [],
 };
 const NoteProvider = ({ children }) => {
   const [state, dispatch] = useReducer(noteReducer, initialState);

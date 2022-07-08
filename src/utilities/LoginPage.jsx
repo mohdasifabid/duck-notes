@@ -2,8 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
-import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
+import { loginStatus } from "./authActionTypes";
 
 export const LoginPage = () => {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();
@@ -18,40 +17,38 @@ export const LoginPage = () => {
     });
 
     if (response.status === 200) {
-      authDispatch({ type: "LOGIN_STATUS", payload: true });
+      authDispatch({ type: loginStatus, payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
+      navigate("/");
+    }
+  };
+  const guestLoginHandler = async () => {
+    const response = await axios.post("/api/auth/login", {
+      email: "ducknotes@gmail.com",
+      password: "duckNotes123",
+    });
+    if (response.status === 200) {
+      localStorage.setItem("encodedToken", response.data.encodedToken);
+      authDispatch({ type: loginStatus, payload: true });
       navigate("/");
     }
   };
 
   return (
-    <div>
-      <Navbar />
-      <div className="login-page-body">
-        <div className="login-page-inputs-btn-container">
-          <label htmlFor="">
-            <strong>Email</strong>
-            <br />
-            <input type="email" onChange={(e) => setEmail(e.target.value)} />
-          </label>
-          <label htmlFor="">
-            <strong>Password</strong>
-            <br />
-            <input
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          <button onClick={saveEmailPassword}>Login</button>
-          <p>
-            Not a user?
-            <Link to="/signup">
-              <a href="">Create account</a>
-            </Link>
-          </p>
-        </div>
+    <div className="login-page-body">
+      <div className="login-page-inputs-btn-container">
+        <label htmlFor="">Email</label>
+        <input type="email" onChange={(e) => setEmail(e.target.value)} />
+        <label htmlFor="">Password</label>
+
+        <input type="password" onChange={(e) => setPassword(e.target.value)} />
+        <button onClick={saveEmailPassword}>Login</button>
+        <button onClick={guestLoginHandler}>Login as Guest</button>
+        <p>
+          Not a user?
+          <Link to="/signup">Create account</Link>
+        </p>
       </div>
-      <Footer />
     </div>
   );
 };

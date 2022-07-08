@@ -39,6 +39,7 @@
   padding-right: 2rem;
   color: var(--primary-color);
   font-weight: bold;
+  cursor: pointer;
 }
 @media (max-width: 500px){
   .navbar-search-input{

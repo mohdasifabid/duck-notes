@@ -1,18 +1,18 @@
 # Duck Notes | A Note Taking App
 ## How to run the app locally?
 
-$https://https://github.com/mohdasifabid/duck-notes
+``$https://https://github.com/mohdasifabid/duck-notes
 $ cd my-note-app
 $ npm install
-$ npm start
+$ npm start``
 
 ## Screens in this project
-1. Landing Page
-2. Home Page
+* Landing Page
+* Home Page
 * Authentication (Login, Signup and Logout) Pages
--Archive Page
--Trash Page
--Label Page
+* Archive Page
+* Trash Page
+* Label Page
 
 ## Features
 Landing Page with two options- it asks to register yourself or if you already register then you can continue after login.

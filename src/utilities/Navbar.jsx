@@ -1,11 +1,13 @@
 import { ListBar } from "./ListBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useNote } from "../useNote";
 import { useAuthProvider } from "../authProvider";
 import { searchedNote } from "./noteActionTypes";
+import { loginStatus, signupStatus } from "./authActionTypes";
 
 export const Navbar = () => {
   const { state, dispatch } = useNote();
+  const navigate = useNavigate();
   const { state: authState, dispatch: authDispatch } = useAuthProvider();
 
   return (
@@ -27,9 +29,8 @@ export const Navbar = () => {
         />
       </div>
       {authState.isLoggedIn === true || authState.isSignedUp === true ? (
-        <Link
+        <a
           className="navbar-login"
-          to="/login"
           onClick={() => {
             authDispatch({ type: loginStatus, payload: false });
             authDispatch({ type: signupStatus, payload: false });
@@ -37,11 +38,11 @@ export const Navbar = () => {
           }}
         >
           Logout
-        </Link>
+        </a>
       ) : (
-        <Link to="/login" className="navbar-login">
+        <a className="navbar-login" onClick={() => navigate("/login")}>
           Login
-        </Link>
+        </a>
       )}
     </div>
   );

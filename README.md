@@ -1,4 +1,5 @@
 # Duck Notes | A Note Taking App
+Duck Notes app built using ReactJS, Duck UI, AJAX, 
 ## How to run the app locally?
 
 ``$https://https://github.com/mohdasifabid/duck-notes  $ cd my-note-app  $ npm install  $ npm start``
@@ -16,19 +17,18 @@
 * If none of two option exist then you can continoue with guest login too.
 * Home Page with options of ADD new note and then -
   __* you can update the note.
-  * you can give the color to that note.
-  * you can do pin and unpin that note.
-Notes Search Functionality available with title.
-Notes Filter and Sorting Functionality available with Label and lates/old note-
-you can filter by label.
-you can sort note- latest/old
-You can delete it but note will not deleted and can be restored from Trash page, and if we want we can delete it from there.
-You can archive notes and can be restored and delete from there too.
+  __* you can give the color to that note.
+  __* you can do pin and unpin that note.
+* Notes Search Functionality available with title.
+* You can delete the note.
+* Deleted note can be restored from Trash page.
+* Can be deleted permanently from trash.
+You can archive notes and can be restored and delete from there.
 All the screens are Responsive.
-Tech Stack and Tools
-React JS
-React Router v6
-React Context API + useReducer
-Vanilla CSS integrated with Panda UI Component Library
-Git For Version Control
-Netlify for Deployment
+## Tech Stack and Tools
+* ReactJS
+* React Router v6
+* JWT
+* Vanilla CSS integrated with Duck UI Component Library
+* Git For Version Control
+* Netlify for Deployment

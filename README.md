@@ -12,12 +12,12 @@
 * Label Page
 
 ## Features
-Landing Page with two options- it asks to register yourself or if you already register then you can continue after login.
-If none of two option exist then you can continoue with guest login too.
-Home Page with options of ADD new note and then -
-you can update the note.
-you can give the color to that note.
-you can do pin and unpin that note.
+* Landing Page with two options- it asks to register yourself or if you already register then you can continue after login.
+* If none of two option exist then you can continoue with guest login too.
+* Home Page with options of ADD new note and then -
+  ** you can update the note.
+  ** you can give the color to that note.
+  ** you can do pin and unpin that note.
 Notes Search Functionality available with title.
 Notes Filter and Sorting Functionality available with Label and lates/old note-
 you can filter by label.

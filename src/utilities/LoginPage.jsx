@@ -29,6 +29,11 @@ export const LoginPage = () => {
     });
     if (response.status === 200) {
       localStorage.setItem("encodedToken", response.data.encodedToken);
+      console.log(response.data.foundUser);
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(response.data.foundUser)
+      );
       authDispatch({ type: loginStatus, payload: true });
       navigate("/");
     }

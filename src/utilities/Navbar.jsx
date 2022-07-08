@@ -6,9 +6,10 @@ import { searchedNote } from "./noteActionTypes";
 import { loginStatus, signupStatus } from "./authActionTypes";
 
 export const Navbar = () => {
-  const { state, dispatch } = useNote();
+  const { dispatch } = useNote();
   const navigate = useNavigate();
   const { state: authState, dispatch: authDispatch } = useAuthProvider();
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   return (
     <div className="duck-navbar-container">
@@ -29,7 +30,7 @@ export const Navbar = () => {
         />
       </div>
       {authState.isLoggedIn === true || authState.isSignedUp === true ? (
-        <a
+        <span
           className="navbar-login"
           onClick={() => {
             authDispatch({ type: loginStatus, payload: false });
@@ -37,12 +38,15 @@ export const Navbar = () => {
             localStorage.removeItem("encodedToken");
           }}
         >
-          Logout
-        </a>
+          <i className="fa-solid fa-user"></i>
+          <span style={{ paddingLeft: ".5rem" }}>
+            {currentUser && currentUser.firstName + " " + currentUser.lastName}
+          </span>
+        </span>
       ) : (
-        <a className="navbar-login" onClick={() => navigate("/login")}>
-          Login
-        </a>
+        <span className="navbar-login" onClick={() => navigate("/login")}>
+          <i className="fa-regular fa-user"></i>
+        </span>
       )}
     </div>
   );

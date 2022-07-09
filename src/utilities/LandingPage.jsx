@@ -28,7 +28,7 @@ export const LandingPage = () => {
     <Layout>
       <div className="landing-page-body">
         <NoteMaker />
-        {state.pinned &&
+        {state.pinned.length > 0 &&
           state.pinned.map((item) => {
             return <NoteCard item={item} key={item._id} type="pinned" />;
           })}

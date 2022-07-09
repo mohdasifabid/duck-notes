@@ -66,16 +66,16 @@ export const NoteCard = ({ item, type }) => {
     dispatch({ type: getTrash, payload: data.trash });
   };
 
-  const addToPinnedHandler = (item) =>
+  const addToPinnedHandler = (item) => {
     dispatch({ type: pinnedNotes, payload: item });
+  };
 
   const isPinned = state.pinned.some((note) => note._id === item._id);
+
   const deleteFromPinnedHandler = (item) => {
     let index = state.pinned.findIndex((note) => note._id === item._id);
-    let foundUnpinned = state.pinned.find((note) => note._id === item._id);
     state.pinned.splice(index, 1);
-    dispatch({type: getNotes, })
-    console.log(newPinnedArr);
+    dispatch({ type: pinnedNotes, payload: state.pinned });
   };
   return (
     <div

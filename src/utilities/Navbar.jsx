@@ -6,7 +6,7 @@ import { searchedNote } from "./noteActionTypes";
 import { loginStatus, signupStatus } from "./authActionTypes";
 
 export const Navbar = () => {
-  const { dispatch } = useNote();
+  const { state, dispatch } = useNote();
   const navigate = useNavigate();
   const { state: authState, dispatch: authDispatch } = useAuthProvider();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -21,6 +21,7 @@ export const Navbar = () => {
       </div>
       <div>
         <input
+          style={state.needSearchInput ? {} : { display: "none" }}
           id="navbarSearchInput"
           className="navbar-search-input"
           placeholder="search note"

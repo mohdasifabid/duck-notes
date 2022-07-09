@@ -3,9 +3,11 @@ import { useNote } from "../useNote";
 import { NoteCard } from "./NoteCard";
 import { NoteMaker } from "./NoteMaker";
 import { Layout } from "./Layout";
+import { useEffect } from "react";
+import { needSearchInputStatus } from "./noteActionTypes";
 
 export const LandingPage = () => {
-  const { state } = useNote();
+  const { state, dispatch } = useNote();
   const searchNoteFunction = (data, meter) => {
     if (meter && meter.length > 0) {
       return data.filter((item) =>
@@ -23,12 +25,18 @@ export const LandingPage = () => {
     }
   });
   const filteredNotes = searchNoteFunction(updatedData, state.searchQuery);
+  useEffect(() => {
+    dispatch({ type: needSearchInputStatus, payload: true });
 
+    return () => {
+      dispatch({ type: needSearchInputStatus, payload: false });
+    };
+  }, []);
   return (
     <Layout>
       <div className="landing-page-body">
         <NoteMaker />
-        {state.pinned &&
+        {state.pinned.length > 0 &&
           state.pinned.map((item) => {
             return <NoteCard item={item} key={item._id} type="pinned" />;
           })}

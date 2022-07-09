@@ -19,6 +19,10 @@ export const LoginPage = () => {
     if (response.status === 200) {
       authDispatch({ type: loginStatus, payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify(response.data.foundUser)
+      );
       navigate("/");
     }
   };
@@ -29,7 +33,6 @@ export const LoginPage = () => {
     });
     if (response.status === 200) {
       localStorage.setItem("encodedToken", response.data.encodedToken);
-      console.log(response.data.foundUser);
       localStorage.setItem(
         "currentUser",
         JSON.stringify(response.data.foundUser)

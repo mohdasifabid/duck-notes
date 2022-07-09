@@ -57,6 +57,7 @@ export const NoteMaker = () => {
         onChange={(e) => setLabel(e.target.value)}
       />
       <button
+        disabled={title.length === 0 || note.length === 0 || label.length === 0}
         className="note-maker-btn"
         onClick={() => postNote(noteWithDetails)}
       >

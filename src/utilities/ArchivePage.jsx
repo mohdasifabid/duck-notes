@@ -1,26 +1,16 @@
-import axios from "axios";
+import { Layout } from "./Layout";
 import { useEffect } from "react";
 import { useNote } from "../useNote";
-import { Footer } from "./Footer";
-import { Navbar } from "./Navbar";
 import { NoteCard } from "./NoteCard";
-import { Link } from "react-router-dom";
+import { archivedNotes } from "./noteActionTypes";
+import { getCall } from "./resuableFunctions";
 
-export const ArchivePage = ({ item }) => {
+export const ArchivePage = () => {
   const { state, dispatch } = useNote();
-  useEffect(() => {
-    const getData = async () => {
-      const token = localStorage.getItem("encodedToken");
-      const response = await axios.get("/api/archives", {
-        headers: {
-          authorization: token,
-        },
-      });
-      if (response.status === 200) {
-        dispatch({ type: "ARCHIVED_NOTES", payload: response.data.archives });
-      }
-    };
-    getData();
+
+  useEffect(async () => {
+    const data = await getCall("/api/archives");
+    dispatch({ type: archivedNotes, payload: data.archives });
   }, []);
 
   const searchNoteFunction = (data, meter) => {
@@ -34,45 +24,14 @@ export const ArchivePage = ({ item }) => {
   };
   const filteredArchive = searchNoteFunction(state.archive, state.searchQuery);
   return (
-    <div className="common-big-container">
-      <Navbar />
-      <div className="main-body">
-        <div className="leftbar-container">
-          <Link to="/" className="listbar-links">
-            <span className="leftbar-icon-name">
-              <i className="list-bar-icons fa-solid fa-home"></i>
-              Home
-            </span>
-          </Link>
-          <Link to="/labels" className="listbar-links">
-            <span className="leftbar-icon-name">
-              <i className="list-bar-icons fa-solid fa-tag"></i>
-              Labels
-            </span>
-          </Link>
-          <Link to="/trash" className="listbar-links">
-            <span className="leftbar-icon-name">
-              <i className="list-bar-icons fa-solid fa-trash-can"></i>
-              Trash
-            </span>
-          </Link>
-          <Link to="/profile" className="listbar-links">
-            <span className="leftbar-icon-name">
-              <i className="list-bar-icons fa-solid fa-user"></i>
-              Profile
-            </span>
-          </Link>
-        </div>
-        <div className="archive-page-body">
-          <h2>Archived notes</h2>
-          <div className="archived-notes-container">
-            {filteredArchive.map((item) => {
-              return <NoteCard type="archived" item={item} key={item._id} />;
-            })}
-          </div>
-        </div>
+    <Layout>
+      <div className="archive-page-body">
+        <h2>Archived notes</h2>
+        {filteredArchive &&
+          filteredArchive.map((item) => {
+            return <NoteCard type="archived" item={item} key={item._id} />;
+          })}
       </div>
-      <Footer />
-    </div>
+    </Layout>
   );
 };

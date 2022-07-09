@@ -2,13 +2,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 2rem 4rem;
+    padding: 2rem;
     flex-grow: 1;
+    gap: 1rem;
 } 
 
- .landing-page-note-maker-container{
-    width: 50%;
-}
+
 .landing-page-note-cards-container{
     width: 50%;
     display: flex; 
@@ -19,9 +18,6 @@
 
 @media(max-width: 520px){
     .landing-page-note-cards-container{
-        width: 100%;
-    }
-    .landing-page-note-maker-container{
         width: 100%;
     }
     .landing-page-body{

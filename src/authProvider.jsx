@@ -1,15 +1,16 @@
 import { createContext, useContext, useReducer } from "react";
+import { loginStatus, signupStatus } from "./utilities/authActionTypes";
 const AuthContext = createContext();
 const useAuthProvider = () => useContext(AuthContext);
 
 const authReducer = (state, action) => {
   switch (action.type) {
-    case "LOGIN_STATUS":
+    case loginStatus:
       return {
         ...state,
-        isLogin: action.payload,
+        isLoggedIn: action.payload,
       };
-    case "SIGNUP_STATUS":
+    case signupStatus:
       return {
         ...state,
         isSignedUp: action.payload,
@@ -19,7 +20,7 @@ const authReducer = (state, action) => {
   }
 };
 const initialState = {
-  isLogin: false,
+  isLoggedIn: false,
   isSignedUp: false,
 };
 const AuthProvider = ({ children }) => {

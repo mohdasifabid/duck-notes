@@ -34,13 +34,13 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 -.5rem 1rem;
+    padding: 0 1rem;
 }
 .bottom-right-side-color-input{
     margin-right: 1rem;
 }
 
-@media(max-width: 520px){
+@media(max-width: 620px){
     .note-card-container{
         width: 100%;
     }

@@ -22,7 +22,8 @@
     border: none;
     position: absolute;
     cursor: pointer;
-    width: 3rem;
+    width: 3.5rem;
+    padding: .3rem;
     right: 0rem;
     bottom: 0rem;
     background-color: var(--secondary-color);

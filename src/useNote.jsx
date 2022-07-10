@@ -18,6 +18,7 @@ const noteReducer = (state, action) => {
         ...state,
         notes: action.payload,
       };
+   
     case archivedNotes:
       return {
         ...state,
@@ -36,7 +37,7 @@ const noteReducer = (state, action) => {
     case pinnedNotes:
       return {
         ...state,
-        pinned: [...state.pinned, action.payload],
+        pinned: [ ...state.pinned, action.payload],
       };
     case needSearchInputStatus:
       return {

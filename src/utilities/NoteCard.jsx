@@ -69,8 +69,8 @@ export const NoteCard = ({ item, type }) => {
   const addToPinnedHandler = (item) => {
     dispatch({ type: pinnedNotes, payload: item });
   };
-
   const isPinned = state.pinned.some((note) => note._id === item._id);
+
 
   const deleteFromPinnedHandler = (item) => {
     let index = state.pinned.findIndex((note) => note._id === item._id);
@@ -161,11 +161,11 @@ export const NoteCard = ({ item, type }) => {
               }}
             ></i>
           )}
-          {isPinned ? (
+          {isPinned && type === "pinned"? (
             <i
               style={{ color: "gray" }}
               className="fa-solid fa-thumbtack"
-              onClick={() => deleteFromPinnedHandler(item)}
+              // onClick={() => deleteFromPinnedHandler(item)}
             ></i>
           ) : (
             <i

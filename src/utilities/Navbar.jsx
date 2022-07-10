@@ -30,23 +30,21 @@ export const Navbar = () => {
           }
         />
       </div>
-      {authState.isLoggedIn === true || authState.isSignedUp === true ? (
+      {authState.isLoggedIn ? (
         <span
           className="navbar-login"
           onClick={() => {
             authDispatch({ type: loginStatus, payload: false });
             authDispatch({ type: signupStatus, payload: false });
             localStorage.removeItem("encodedToken");
+            localStorage.removeItem("currentUser")
           }}
         >
-          <i className="fa-solid fa-user"></i>
-          <span style={{ paddingLeft: ".5rem" }}>
-            {currentUser && currentUser.firstName + " " + currentUser.lastName}
-          </span>
+            Logout
         </span>
       ) : (
         <span className="navbar-login" onClick={() => navigate("/login")}>
-          <i className="fa-regular fa-user"></i>
+          Login
         </span>
       )}
     </div>

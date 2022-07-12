@@ -8,7 +8,6 @@ import { needSearchInputStatus } from "./noteActionTypes";
 
 export const LandingPage = () => {
   const { state, dispatch } = useNote();
-  const notesCopy = JSON.parse(JSON.stringify(state.notes))
 
   const searchNoteFunction = (data, meter) => {
     if (meter && meter.length > 0) {
@@ -29,25 +28,15 @@ export const LandingPage = () => {
     }
   }
   const updatedData = updateData(state.notes, state.pinned)
-  console.log(updatedData, state.pinned)
-  // const updatedData = state.notes.filter((item) => {
-  //   if (state.pinned.length > 0) {
-  //     return state.pinned.some((pinnedItem) => pinnedItem._id !== item._id);
-  //   } else {
-  //     return state.notes;
-  //   }
-  // });
- 
 
-  console.log(updatedData, "updated")
   const filteredNotes = searchNoteFunction(updatedData, state.searchQuery);
   useEffect(() => {
     dispatch({ type: needSearchInputStatus, payload: true });
-
     return () => {
       dispatch({ type: needSearchInputStatus, payload: false });
     };
   }, []);
+  
   return (
     <Layout>
       <div className="landing-page-body">

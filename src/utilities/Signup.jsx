@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
-import { signupStatus } from "./authActionTypes";
+import { LOGIN_STATUS, SIGNUP_STATUS } from "./authActionTypes";
 
 export const Signup = () => {
   const { dispatch: authDispatch } = useAuthProvider();
@@ -21,7 +21,8 @@ export const Signup = () => {
       password: password,
     });
     if (response.status === 201) {
-      authDispatch({ type: signupStatus, payload: true });
+      authDispatch({ type: SIGNUP_STATUS, payload: true });
+      authDispatch({ type: LOGIN_STATUS, payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
       navigate("/login");
     }

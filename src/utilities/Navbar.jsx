@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useNote } from "../useNote";
 import { useAuthProvider } from "../authProvider";
 import { searchedNote } from "./noteActionTypes";
-import { loginStatus, signupStatus } from "./authActionTypes";
+import { LOGIN_STATUS, SIGNUP_STATUS } from "./authActionTypes";
 
 export const Navbar = () => {
   const { state, dispatch } = useNote();
@@ -34,8 +34,8 @@ export const Navbar = () => {
         <span
           className="navbar-login"
           onClick={() => {
-            authDispatch({ type: loginStatus, payload: false });
-            authDispatch({ type: signupStatus, payload: false });
+            authDispatch({ type: LOGIN_STATUS, payload: false });
+            authDispatch({ type: SIGNUP_STATUS, payload: false });
             localStorage.removeItem("encodedToken");
             localStorage.removeItem("currentUser")
           }}

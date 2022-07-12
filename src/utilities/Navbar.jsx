@@ -2,8 +2,8 @@ import { ListBar } from "./ListBar";
 import { Link, useNavigate } from "react-router-dom";
 import { useNote } from "../useNote";
 import { useAuthProvider } from "../authProvider";
-import { searchedNote } from "./noteActionTypes";
-import { loginStatus, signupStatus } from "./authActionTypes";
+import { SEARCHED_NOTE } from "./noteActionTypes";
+import { LOGIN_STATUS, SIGNUP_STATUS } from "./authActionTypes";
 
 export const Navbar = () => {
   const { state, dispatch } = useNote();
@@ -26,27 +26,25 @@ export const Navbar = () => {
           className="navbar-search-input"
           placeholder="search note"
           onChange={(e) =>
-            dispatch({ type: searchedNote, payload: e.target.value })
+            dispatch({ type: SEARCHED_NOTE, payload: e.target.value })
           }
         />
       </div>
-      {authState.isLoggedIn === true || authState.isSignedUp === true ? (
+      {authState.isLoggedIn ? (
         <span
           className="navbar-login"
           onClick={() => {
-            authDispatch({ type: loginStatus, payload: false });
-            authDispatch({ type: signupStatus, payload: false });
+            authDispatch({ type: LOGIN_STATUS, payload: false });
+            authDispatch({ type: SIGNUP_STATUS, payload: false });
             localStorage.removeItem("encodedToken");
+            localStorage.removeItem("currentUser")
           }}
         >
-          <i className="fa-solid fa-user"></i>
-          <span style={{ paddingLeft: ".5rem" }}>
-            {currentUser && currentUser.firstName + " " + currentUser.lastName}
-          </span>
+            Logout
         </span>
       ) : (
         <span className="navbar-login" onClick={() => navigate("/login")}>
-          <i className="fa-regular fa-user"></i>
+          Login
         </span>
       )}
     </div>

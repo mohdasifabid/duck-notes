@@ -1,7 +1,7 @@
 import { Server, Model, RestSerializer } from "miragejs";
 import {
   deleteFromArchivesHandler,
-  getAllArchivedNotesHandler,
+  getAllARCHIVED_NOTESHandler,
   restoreFromArchivesHandler,
 } from "./backend/controllers/ArchiveController";
 import {
@@ -62,7 +62,7 @@ export function makeServer({ environment = "development" } = {}) {
       this.post("/notes/trash/:noteId", trashNoteHandler.bind(this));
 
       // archive routes (private)
-      this.get("/archives", getAllArchivedNotesHandler.bind(this));
+      this.get("/archives", getAllARCHIVED_NOTESHandler.bind(this));
       this.post(
         "/archives/restore/:noteId",
         restoreFromArchivesHandler.bind(this)

@@ -1,12 +1,10 @@
-import { useNavigate, Outlet } from "react-router-dom";
-import { useAuthProvider } from "./../authProvider";
+import {  Outlet, Navigate } from "react-router-dom";
 
 export const PrivateRoute = () => {
-  const { state } = useAuthProvider();
-  const navigate = useNavigate();
-  if (state.isLoggedIn) {
+  const token = localStorage.getItem("encodedToken");
+  if (token) {
     return <Outlet />;
   } else {
-    return <>{navigate("/login")}</>;
+    return <Navigate to="/login"/>;
   }
 };

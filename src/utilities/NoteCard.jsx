@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useNote } from "../useNote";
 import { deleteCall, postCall } from "./resuableFunctions";
 import {
-  archivedNotes,
-  getNotes,
-  getTrash,
-  pinnedNotes,
+  ARCHIVED_NOTES,
+  GET_NOTES,
+  GET_TRASH,
+  PINNED_NOTES,
 } from "./noteActionTypes";
 
 export const NoteCard = ({ item, type }) => {
@@ -18,19 +18,19 @@ export const NoteCard = ({ item, type }) => {
 
   const moveToTrashHandler = async (id) => {
     const trashData = await postCall(`/api/notes/trash/${id}`, {});
-    dispatch({ type: getTrash, payload: trashData.trash });
-    dispatch({ type: getNotes, payload: trashData.notes });
+    dispatch({ type: GET_TRASH, payload: trashData.trash });
+    dispatch({ type: GET_NOTES, payload: trashData.notes });
   };
   const archiveNoteHandler = async (item) => {
     const data = await postCall(`/api/notes/archives/${item._id}`, {
       item,
     });
-    dispatch({ type: archivedNotes, payload: data.archives });
-    dispatch({ type: getNotes, payload: data.notes });
+    dispatch({ type: ARCHIVED_NOTES, payload: data.archives });
+    dispatch({ type: GET_NOTES, payload: data.notes });
   };
   const deleteFromArchiveHandler = async (id) => {
     const data = await deleteCall(`/api/archives/delete/${item._id}`);
-    dispatch({ type: archivedNotes, payload: data.archives });
+    dispatch({ type: ARCHIVED_NOTES, payload: data.archives });
   };
 
   const updateNoteHandler = async (notesId) => {
@@ -43,39 +43,39 @@ export const NoteCard = ({ item, type }) => {
         bgColor: updatedBgColor,
       },
     });
-    dispatch({ type: getNotes, payload: data.notes });
+    dispatch({ type: GET_NOTES, payload: data.notes });
   };
 
   const inArchive = state.archive.some((note) => note._id === item._id);
 
   const restoreArchivedNoteHandler = async (id) => {
     const data = await postCall(`/api/archives/restore/${id}`, {});
-    dispatch({ type: archivedNotes, payload: data.archives });
-    dispatch({ type: getNotes, payload: data.notes });
+    dispatch({ type: ARCHIVED_NOTES, payload: data.archives });
+    dispatch({ type: GET_NOTES, payload: data.notes });
   };
 
   const inTrash = state.trash.some((note) => note._id === item._id);
   const restoreFromTrashHandler = async (id) => {
     const data = await postCall(`/api/trash/restore/${id}`, {});
-    dispatch({ type: getTrash, payload: data.trash });
-    dispatch({ type: getNotes, payload: data.notes });
+    dispatch({ type: GET_TRASH, payload: data.trash });
+    dispatch({ type: GET_NOTES, payload: data.notes });
   };
 
   const deleteFromTrashHandler = async (id) => {
     const data = await deleteCall(`/api/trash/delete/${id}`);
-    dispatch({ type: getTrash, payload: data.trash });
+    dispatch({ type: GET_TRASH, payload: data.trash });
   };
 
   const addToPinnedHandler = (item) => {
-    dispatch({ type: pinnedNotes, payload: item });
+    dispatch({ type: PINNED_NOTES, payload: item });
   };
-
   const isPinned = state.pinned.some((note) => note._id === item._id);
+
 
   const deleteFromPinnedHandler = (item) => {
     let index = state.pinned.findIndex((note) => note._id === item._id);
     state.pinned.splice(index, 1);
-    dispatch({ type: pinnedNotes, payload: state.pinned });
+    dispatch({ type: PINNED_NOTES, payload: state.pinned });
   };
   return (
     <div
@@ -161,11 +161,11 @@ export const NoteCard = ({ item, type }) => {
               }}
             ></i>
           )}
-          {isPinned ? (
+          {isPinned && type === "pinned"? (
             <i
               style={{ color: "gray" }}
               className="fa-solid fa-thumbtack"
-              onClick={() => deleteFromPinnedHandler(item)}
+              // onClick={() => deleteFromPinnedHandler(item)}
             ></i>
           ) : (
             <i

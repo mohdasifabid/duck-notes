@@ -1,2 +1,2 @@
-export const loginStatus = "LOGIN_STATUS";
-export const signupStatus = "SIGNUP_STATUS";
+export const LOGIN_STATUS = "LOGIN_STATUS";
+export const SIGNUP_STATUS = "SIGNUP_STATUS";

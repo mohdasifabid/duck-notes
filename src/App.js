@@ -10,26 +10,28 @@ import { LandingPage } from "./utilities/LandingPage";
 import { ArchivePage } from "./utilities/ArchivePage";
 import { PrivateRoute } from "./utilities/PrivateRoute";
 import { ProfilePage } from "./utilities/ProfilePage";
-import { loginStatus } from "./utilities/authActionTypes";
+import { LOGIN_STATUS } from "./utilities/authActionTypes";
 import { Routes, Route } from "react-router-dom";
 import { getCall } from "./utilities/resuableFunctions";
-import { getNotes } from "./utilities/noteActionTypes";
+import { GET_NOTES } from "./utilities/noteActionTypes";
 
 function App() {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();
   const { dispatch } = useNote();
+  const token = localStorage.getItem("encodedToken");
 
   useEffect(async () => {
-    const token = localStorage.getItem("encodedToken");
     if (token) {
-      authDispatch({ type: loginStatus, payload: true });
-    } else {
-      authDispatch({ type: loginStatus, payload: false });
+      authDispatch({ type: LOGIN_STATUS, payload: true });
+
+    } 
+    else {
+      authDispatch({ type: LOGIN_STATUS, payload: false });
     }
 
     const data = await getCall("/api/notes");
-    dispatch({ type: getNotes, payload: data.notes });
-  }, []);
+    dispatch({ type: GET_NOTES, payload: data.notes });
+  }, [token, dispatch, authDispatch]);
 
   return (
     <div>

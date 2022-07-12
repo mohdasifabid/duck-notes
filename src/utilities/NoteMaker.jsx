@@ -1,7 +1,7 @@
 import "./NoteMaker.css";
 import { useState } from "react";
 import { useNote } from "../useNote";
-import { getNotes } from "./noteActionTypes";
+import { GET_NOTES } from "./noteActionTypes";
 import { postCall } from "./resuableFunctions";
 
 export const NoteMaker = () => {
@@ -22,7 +22,7 @@ export const NoteMaker = () => {
     const data = await postCall("/api/notes", {
       note: noteWithDetails,
     });
-    dispatch({ type: getNotes, payload: data.notes });
+    dispatch({ type: GET_NOTES, payload: data.notes });
     setTitle("");
     setLabel("");
     setNote("");

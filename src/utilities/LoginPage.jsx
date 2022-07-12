@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthProvider } from "../authProvider";
-import { loginStatus } from "./authActionTypes";
+import { LOGIN_STATUS } from "./authActionTypes";
 
 export const LoginPage = () => {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();
@@ -17,7 +17,7 @@ export const LoginPage = () => {
     });
 
     if (response.status === 200) {
-      authDispatch({ type: loginStatus, payload: true });
+      authDispatch({ type: LOGIN_STATUS, payload: true });
       localStorage.setItem("encodedToken", response.data.encodedToken);
       localStorage.setItem(
         "currentUser",
@@ -37,7 +37,7 @@ export const LoginPage = () => {
         "currentUser",
         JSON.stringify(response.data.foundUser)
       );
-      authDispatch({ type: loginStatus, payload: true });
+      authDispatch({ type: LOGIN_STATUS, payload: true });
       navigate("/");
     }
   };

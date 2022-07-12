@@ -16,9 +16,9 @@ Duck Notes app built using ReactJS, Duck UI, AJAX,
 * Landing Page with two options- it asks to register yourself or if you already register then you can continue after login.
 * If none of two option exist then you can continoue with guest login too.
 * Home Page with options of ADD new note and then -
-  __* you can update the note.
-  __* you can give the color to that note.
-  __* you can do pin and unpin that note.
+  _* you can update the note.
+  _* you can give the color to that note.
+  _* you can do pin and unpin that note.
 * Notes Search Functionality available with title.
 * You can delete the note.
 * Deleted note can be restored from Trash page.

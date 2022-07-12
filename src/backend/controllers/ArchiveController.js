@@ -11,7 +11,7 @@ import { requiresAuth } from "../utils/authUtils";
  * send GET Request at /api/archives
  * */
 
-export const getAllArchivedNotesHandler = function (schema, request) {
+export const getAllARCHIVED_NOTESHandler = function (schema, request) {
   const user = requiresAuth.call(this, request);
   if (!user) {
     return new Response(

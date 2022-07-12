@@ -2,7 +2,7 @@ import { Layout } from "./Layout";
 import { useEffect } from "react";
 import { useNote } from "../useNote";
 import { NoteCard } from "./NoteCard";
-import { archivedNotes } from "./noteActionTypes";
+import { ARCHIVED_NOTES } from "./noteActionTypes";
 import { getCall } from "./resuableFunctions";
 
 export const ArchivePage = () => {
@@ -10,7 +10,7 @@ export const ArchivePage = () => {
 
   useEffect(async () => {
     const data = await getCall("/api/archives");
-    dispatch({ type: archivedNotes, payload: data.archives });
+    dispatch({ type: ARCHIVED_NOTES, payload: data.archives });
   }, []);
 
   const searchNoteFunction = (data, meter) => {

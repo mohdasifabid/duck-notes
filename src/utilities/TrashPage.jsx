@@ -2,14 +2,14 @@ import { useEffect } from "react";
 import { Layout } from "./Layout";
 import { useNote } from "../useNote";
 import { NoteCard } from "./NoteCard";
-import { getTrash } from "./noteActionTypes";
+import { GET_TRASH } from "./noteActionTypes";
 import { getCall } from "./resuableFunctions";
 
 export const TrashPage = ({ item }) => {
   const { state, dispatch } = useNote();
   useEffect(async () => {
     const data = await getCall("/api/trash");
-    dispatch({ type: getTrash, payload: data.trash });
+    dispatch({ type: GET_TRASH, payload: data.trash });
   }, []);
 
   return (

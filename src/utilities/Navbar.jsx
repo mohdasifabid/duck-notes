@@ -2,7 +2,7 @@ import { ListBar } from "./ListBar";
 import { Link, useNavigate } from "react-router-dom";
 import { useNote } from "../useNote";
 import { useAuthProvider } from "../authProvider";
-import { searchedNote } from "./noteActionTypes";
+import { SEARCHED_NOTE } from "./noteActionTypes";
 import { LOGIN_STATUS, SIGNUP_STATUS } from "./authActionTypes";
 
 export const Navbar = () => {
@@ -26,7 +26,7 @@ export const Navbar = () => {
           className="navbar-search-input"
           placeholder="search note"
           onChange={(e) =>
-            dispatch({ type: searchedNote, payload: e.target.value })
+            dispatch({ type: SEARCHED_NOTE, payload: e.target.value })
           }
         />
       </div>

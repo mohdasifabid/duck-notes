@@ -4,7 +4,7 @@ import { NoteCard } from "./NoteCard";
 import { NoteMaker } from "./NoteMaker";
 import { Layout } from "./Layout";
 import { useEffect } from "react";
-import { needSearchInputStatus } from "./noteActionTypes";
+import { NEED_SEARCH_INPUT_STATUS } from "./noteActionTypes";
 
 export const LandingPage = () => {
   const { state, dispatch } = useNote();
@@ -31,9 +31,9 @@ export const LandingPage = () => {
 
   const filteredNotes = searchNoteFunction(updatedData, state.searchQuery);
   useEffect(() => {
-    dispatch({ type: needSearchInputStatus, payload: true });
+    dispatch({ type: NEED_SEARCH_INPUT_STATUS, payload: true });
     return () => {
-      dispatch({ type: needSearchInputStatus, payload: false });
+      dispatch({ type: NEED_SEARCH_INPUT_STATUS, payload: false });
     };
   }, []);
   

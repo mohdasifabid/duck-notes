@@ -13,7 +13,7 @@ import { ProfilePage } from "./utilities/ProfilePage";
 import { LOGIN_STATUS } from "./utilities/authActionTypes";
 import { Routes, Route } from "react-router-dom";
 import { getCall } from "./utilities/resuableFunctions";
-import { getNotes } from "./utilities/noteActionTypes";
+import { GET_NOTES } from "./utilities/noteActionTypes";
 
 function App() {
   const { dispatch: authDispatch, state: authState } = useAuthProvider();
@@ -30,7 +30,7 @@ function App() {
     }
 
     const data = await getCall("/api/notes");
-    dispatch({ type: getNotes, payload: data.notes });
+    dispatch({ type: GET_NOTES, payload: data.notes });
   }, [token, dispatch, authDispatch]);
 
   return (

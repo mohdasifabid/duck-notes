@@ -1,45 +1,45 @@
 import { act } from "@testing-library/react";
 import { createContext, useContext, useReducer } from "react";
 import {
-  archivedNotes,
-  getNotes,
-  getTrash,
-  needSearchInputStatus,
-  pinnedNotes,
-  searchedNote,
+  ARCHIVED_NOTES,
+  GET_NOTES,
+  GET_TRASH,
+  NEED_SEARCH_INPUT_STATUS,
+  PINNED_NOTES,
+  SEARCHED_NOTE,
 } from "./utilities/noteActionTypes";
 const NoteContext = createContext();
 const useNote = () => useContext(NoteContext);
 
 const noteReducer = (state, action) => {
   switch (action.type) {
-    case getNotes:
+    case GET_NOTES:
       return {
         ...state,
         notes: action.payload,
       };
    
-    case archivedNotes:
+    case ARCHIVED_NOTES:
       return {
         ...state,
         archive: action.payload,
       };
-    case searchedNote:
+    case SEARCHED_NOTE:
       return {
         ...state,
         searchQuery: action.payload,
       };
-    case getTrash:
+    case GET_TRASH:
       return {
         ...state,
         trash: action.payload,
       };
-    case pinnedNotes:
+    case PINNED_NOTES:
       return {
         ...state,
         pinned: [ ...state.pinned, action.payload],
       };
-    case needSearchInputStatus:
+    case NEED_SEARCH_INPUT_STATUS:
       return {
         ...state,
         needSearchInput: action.payload,
